@@ -1,0 +1,237 @@
+html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+
+body{
+  margin:0px; 
+}
+
+.main-menu {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-variant: small-caps;  
+  font-size: 0.75rem !important;
+  display: block;
+}
+h2{
+    margin-top: 4px;
+    margin-bottom: 6px;
+    color:darkgray;
+    font-variant: small-caps;
+    text-align:center;
+}
+
+.center{
+    text-align: center !important;
+}
+
+input{
+    font-weight: 300;
+    font-size: 1rem;
+    font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    text-decoration: none;
+    text-align: center;
+    line-height: 2.5rem;
+    height: 2.5rem;
+    padding: 0 0.5rem;
+    margin: 0;
+    display: inline-block;
+    border: none;
+    border-style:solid;
+    border-color: black;
+    border-radius: 15px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition-property: all;
+    transition-property: all;
+    -webkit-transition-duration: .3s;
+    transition-duration: .3s;
+    margin-bottom: 6px;
+}
+/*
+input {
+    font-size:1.5rem !important;
+    margin-left: 1rem !important;
+    margin-right: 1rem !important; 
+    width:6rem; 
+    border-style:solid;
+    border-color: black;
+    border-radius: 15px;
+    padding-left: 6px;
+    padding-right: 6px;
+  
+ }
+*/
+.main-section{
+    margin-left:6px;
+    margin-right:6px;
+    text-align:left;
+}
+p {
+    text-align:justify;
+    margin:1rem;
+    margin-left:3rem;
+    margin-right: 3rem;
+}
+.menu-item {
+    
+    
+    padding:4px;
+    margin:6px;
+    line-height: 2rem;
+    font-size: 1.3rem;
+}
+
+.app-header{
+    
+    height:100px;
+    background-repeat: no-repeat;
+    border-bottom: solid 2px black;
+    border-top: solid 1px black;
+    background-size:contain; 
+}
+.app-logo{
+    position: absolute;
+    margin:1rem;
+    font-size:3rem;
+    top: 0px;
+    right: 0px; 
+}
+
+.profile-image {
+   width:2.5rem;
+   height:2.5rem;
+    border: 0.125rem solid white;
+    border-radius: 50%;
+    display: inline;
+    vertical-align: middle;
+    margin:4px;
+    margin-right: 1rem;
+}
+.google-signin {display:inline-block;
+vertical-align: middle;
+}
+.button-logins{
+    margin:2rem;
+    text-align: center;
+}
+.button-login{
+     padding:0 1rem;
+}
+
+
+.history-header {
+    background-color: aliceblue;
+    border-bottom: 1px solid cornflowerblue;
+    margin-bottom: 6px;
+
+}
+
+.history-date-header {
+    background-color: aliceblue;
+    font-weight: bold;
+    border-bottom: 1px solid gray;
+    margin-bottom: 0px;
+    margin-top:6px;
+}
+
+.message{
+    padding:4px;
+    background-color: aliceblue;
+}
+.hidden{
+    display:none;
+}
+
+.page-section{
+    border-bottom: 2px solid gray;
+    margin-bottom: 1rem;
+}
+
+.time-label{
+    width: 7rem;
+    margin-right: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    display: inline-block;
+    text-align: right;  
+}
+.date-label {
+    width: 6rem;
+    margin-right: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    display: inline-block;
+    text-align: right;  
+}
+
+.summary-label{
+    width:11rem;
+    display: inline-block;
+    text-align: right;  
+
+}
+.history-label {
+    width: 13rem;
+    margin-right: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    display: inline-block;
+    text-align: right;  
+}
+.inline {
+    display: inline-block;
+}
+
+.history-value {
+    color: blue;
+    display: inline-block;
+    text-align: right;
+    width: 9rem;
+    margin-right:4px;
+}
+
+.button-menu-text {
+    width:10rem;
+    display:inline-block;
+}
+.button{margin-bottom: 6px; margin-left: 6px;}
+
+.number-edit {
+    width:5rem;
+}
+
+.name-edit {
+    width:12rem;
+}
+
+.alert{
+    text-align: justify;
+    padding:6px;
+    margin-top:1rem;
+    margin-bottom:1rem;
+    font-weight: bold;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    background-color: azure;
+    border:1px solid blue;
+}
+
+.close{
+    padding:8px;
+    margin-right:6px;
+    font-weight: bolder;
+}
+.alert-success{
+   
+    background-color: azure;
+    border:1px solid blue;
+}
+.alert-error{
+    background-color:red;
+    border:1px solid darkred;
+}
+.alert-warning{
+    background-color: beige;
+    border:1px solid brown;
+}

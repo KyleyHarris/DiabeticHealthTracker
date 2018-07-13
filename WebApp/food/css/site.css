@@ -1,0 +1,20 @@
+.finger-button{
+    font-size:5rem !important;
+    width: auto !important ;
+    height: auto !important;
+    margin: 1rem !important;
+}
+.img-320240 {width:100%;height:auto;  }
+
+#imgView {
+    border:solid 5px black;
+    
+    padding:3px;
+    background-color: aliceblue;
+    
+    display:block;
+}
+
+#upload {
+    margin-bottom: 10px;
+}

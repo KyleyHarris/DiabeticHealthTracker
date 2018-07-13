@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://entertheapi.azurewebsites.net/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/buttons.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/buttons.js"></script>
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/font-awesome/all.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
+
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>        
+    <script src="../js/healthjournal.js"></script>
+    <script src="../js/healthjournalUI.js"></script>
+
+    <script src="./js/insulinrecording.js"></script>
+    <script src="./js/insulinrecordingUI.js"></script>
+    <link rel="stylesheet" href="../css/site.css" />
+    <link rel="stylesheet" href="./css/site.css" />
+    <meta charset="utf-8" />
+    <title>HealthJournal - Insulin Dosing</title>
+</head>
+
+<body>
+    <div class="app-header"><div class="app-logo"><i class="fas fa-syringe"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
+        <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
+        <div class="google-signin">
+            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="error"></div><div class="main-section">
+        
+        <h2>Insulin Dosing</h2>
+        <div class="message hidden"></div>
+        <div id="input-form" class="page-section">
+            <div class="input-form-content center" id="input-form-content"></div>
+        </div>
+        <div id="input-form" class="page-section">
+                <div class="input-form-content">
+                    <div class="add-insulin-dose ">
+                        <h2>Settings</h2>
+                        <input type="text" id="new-insulin-type" class="name-edit" size=20 maxlength="25" /><button id="btnAdd" class="button button-action button-pill">Add Type</button>
+                    </div>
+                </div>
+            </div>
+            <div id="history" class="page-section">
+            <h2>Today's History</h2>
+            <div class="history-header"><label class="time-label">Time</label><label class="history-type">Type</label></label><label class="history-value">Units mmol/L</label>
+            </div>
+            <div id="historyRows"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>

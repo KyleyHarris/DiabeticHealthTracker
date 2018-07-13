@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://entertheapi.azurewebsites.net/js/jquery-3.1.1.min.js"></script>
+
+    <link rel="stylesheet" href="./css/site.css" />
+    <link rel="stylesheet" href="../css/site.css" />
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/buttons.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/buttons.js"></script>
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/font-awesome/all.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
+
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>    
+
+    <script src="../js/healthjournal.js"></script>
+    <script src="../js/healthjournalUI.js"></script>
+    <script src="/js/megapix-image.js"></script>
+    <script src="/js/pica.min.js"></script>
+
+    <script src="./js/food.js"></script>
+    <script src="./js/foodUI.js"></script>
+    <meta charset="utf-8" />
+    <title>HealthJournal - Food</title>
+</head>
+
+<body>
+    <div class="app-header">
+        <div class="app-logo">
+            <i class="fas fa-utensils"></i>
+            <a class="main-menu" href="../index.html">Main Menu</a>
+        </div>
+        <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
+        <div class="google-signin">
+            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            </a>
+        </div>
+    </div>
+
+    <div id="error"></div><div class="main-section">
+
+        <h2>Food</h2>
+
+        <div class="message hidden"></div>
+        <div id="input-form" class="page-section center">
+            <div>
+                <button class="finger-button photo-button button button-action">
+                    <i class="fas fa-camera-retro"></i>
+                </button>
+                <input class="hidden" type="file" id="food-capture" accept="image/*" capture="environment">
+            </div>
+            Click a Pic Now
+            <div class="inline">
+                <img id="imgView" class="img-320240" src="./images/food.png" alt="" />
+                <div id="imgResult"> </div>
+            </div>
+            <div id="upload">
+                <button type="button" class=" button button-action button-pill button-icon-txt-large " id="btnGo">Add</button>
+            </div>
+            <div id="msg"></div>
+        </div>
+        <div id="history" class="page-section">
+
+            <h2>Today's Food</h2>
+            <div class="history-header">
+                <label class="date-label">Date</label>
+                <label class="time-label">Time</label>
+            </div>
+            <div id="historyRows"></div>
+        </div>
+    </div>
+
+
+</body>
+
+</html>
+<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>

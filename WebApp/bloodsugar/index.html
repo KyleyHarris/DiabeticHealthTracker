@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://entertheapi.azurewebsites.net/js/jquery-3.1.1.min.js"></script>
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/buttons.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/buttons.js"></script>
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/font-awesome/all.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
+
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>    
+    <script src="https://entertheapi.azurewebsites.net/js/moment-with-locales.js"></script>
+    <script src="../js/healthjournal.js"></script>
+    <script src="../js/healthjournalUI.js"></script>
+    <script src="./js/sugarreading.js"></script>
+    <script src="./js/sugarreadingUI.js"></script>
+    <link rel="stylesheet" href="../css/site.css" />
+    <link rel="stylesheet" href="./css/site.css" />
+    <meta charset="utf-8" />
+    <title>HealthJournal - Sugar Readings</title>
+</head>
+
+<body>
+       
+    <div class="app-header">
+         <div class="app-logo"><i class="fas fa-hand-point-right"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
+        <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
+        <div class="google-signin">
+            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            </a>
+        </div>
+    </div>
+    <div class="center">
+    <div class="main-section ">
+         <h2>Sugar Readings</h2>
+        <div class="page-section">
+            <div>
+                <label class="history-label">Today You've had:</label><span class="history-value" id="todayTotal"></span>readings</div>
+            <div>
+                <label class="history-label">Min Reading:</label><span class="history-value" id="todayMin"></span><span class="unit-type"></span></div>
+            <div>
+                <label class="history-label">Max Reading:</label><span class="history-value" id="todayMax"></span><span class="unit-type"></span></div>
+            <div>
+                <label class="history-label">Avg Reading:</label><span class="history-value" id="todayAvg"></span><span class="unit-type"></span></div>
+            <div>
+                <label class="history-label">Predicted IFCC HbA1c (3mnth) (mmol/mol):</label><span class="history-value" id="hba1c"></span></div>
+        </div>
+
+        <div class="message hidden"></div>
+        <div id="input-form" class="page-section">
+            <input type="number" min="0" max="40" required size="6" id="reading-value" onfocus="this.value=''" /><span class="unit-type"></span>
+            <button type="button" class="button button-action button-pill " id="btnGo">Add</button>
+        </div>
+        <div id="history" class="page-section">
+            <h2>Recent History</h2>
+            <div id="historyRows"></div>
+        </div>
+    </div>
+</div>
+
+</body>
+
+</html>
+<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>

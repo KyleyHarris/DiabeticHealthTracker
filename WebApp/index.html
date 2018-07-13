@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://entertheapi.azurewebsites.net/js/jquery-3.1.1.min.js"></script>
+    <script src="./js/healthjournalUI.js"></script>
+    <script src="./js/mainmenu.js"></script>
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
+    <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>        
+
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/font-awesome/all.css" />
+    <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
+    <link rel="stylesheet" href="./css/buttons.css" />
+    <script src="./js/buttons.js"></script>
+    <link rel="stylesheet" href="./css/site.css" />
+
+    <meta charset="utf-8" />
+    <title>Health Journal</title>
+</head>
+
+<body>
+    <div class="app-header">
+        <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
+        <div class="google-signin">
+            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            </a>
+        </div>
+    </div>
+    <div class="main-section center">
+        <h2>Start Journalling your health now</h2>
+        <div class="menu-buttons">
+            <div class="menu-item"><a class="button button-primary" href="./h20/index.html"><span class="button-menu-text">Water</span><i class="fas fa-tint"></i></a></i></div>
+            <div class="menu-item"><a class="button button-primary" href="./bloodsugar/index.html"><span class="button-menu-text">Blood Sugar</span><i class="fas fa-hand-point-right"></i></a></i></div>
+            <div class="menu-item"><a class="button button-primary" href="./Insulin/index.html"><span class="button-menu-text">Insulin Dose</span><i class="fas fa-syringe"></i></a></i></div>
+            <div class="menu-item"><a class="button button-primary" href="./weight/index.html"><span class="button-menu-text">Weight</span><i class="fas fa-weight"></i></a></i></div>
+            <div class="menu-item"><a class="button button-primary" href="./food/index.html"><span class="button-menu-text">Food</span><i class="fas fa-utensils"></i></a></i></div>
+            <div class="menu-item"><a class="button button-primary" href="./sleep/index.html"><span class="button-menu-text">Sleep</span><i class="fas fa-moon"></i></a></i></div>
+            <div class="menu-item"><a class="button button-primary" href="./note/index.html"><span class="button-menu-text">Text Journal</span><i class="fas fa-file-alt"></i></a></i></div>
+        </div>
+        <p>we recommend to get the best ease of use and speed that once you select a particular journal feature that you save
+                a link directly to your phone home menu for rapid instant access to each journal. this gives the most convenient
+                experience. Or better yet, get the native app when available. you can still navigate back to here from each app.
+            </p>
+    
+    </div>
+    <div id="log"></div>
+
+</body>
+
+</html>
+<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>

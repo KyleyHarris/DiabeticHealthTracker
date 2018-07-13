@@ -1,0 +1,41 @@
+
+.reading-buttons {padding:1rem;
+line-height:3rem}
+.reading-button{
+    width:45%;
+}
+
+.reading-button-clear{
+    width:45%;
+}
+
+#input-form{
+    line-height: 2rem !important;
+    font-size: 1.2rem !important;
+    align-content: center;
+    padding-bottom: 6px;
+}
+
+button {width:10rem;}
+
+.add-insulin-dose {
+    margin-bottom:6px;
+}
+
+.history-label {
+    width: 7rem;
+ }
+.history-type {
+    width: 8rem;
+    display: inline-block;
+    text-align: right;
+    margin-right:6px;
+
+}
+
+.history-value {
+  
+    width: 6rem !important;
+    
+ 
+}

@@ -1,0 +1,37 @@
+
+.water-buttons {
+padding:1rem;
+line-height:3rem}
+
+.water-button{
+    width:45%;
+    font-weight: bold;
+}
+
+
+.water-button-clear{
+    width:45%;
+}
+
+
+#input-form{
+    line-height: 2rem;
+    font-size: 1.2rem;
+    margin-bottom: 6px;
+}
+
+
+.add-fluid-dose {
+    margin-bottom:6px;
+}
+
+.history-time{
+   
+    width: 6rem !important;
+    display: inline-block;
+    text-align: right;
+}
+.history-value {
+     width: 6rem !important;
+}
+

@@ -1,0 +1,22 @@
+.reading-buttons {padding:1rem;
+line-height:3rem}
+.reading-button{
+    width:45%;
+}
+
+.reading-button-clear{
+    width:45%;
+}
+
+
+
+#input-form{
+    line-height: 2rem;
+    font-size: 1.2rem;
+    align-content: center;
+}
+
+.history-value {
+    width: 4rem !important;
+ }
+
