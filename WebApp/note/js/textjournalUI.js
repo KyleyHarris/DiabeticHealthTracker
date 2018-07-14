@@ -3,7 +3,11 @@ $(document).ready(function() {
   HealthJournal.TextJournal.Data.onMesssageFailed = onNoteReadingPosted;
 
   $("#btnGo").click(postNoteReading);
+<<<<<<< 2af76e1df2cb7b0310c279a79a698a37759252ef
   $("#reading-value").val(0);
+=======
+  clearNoteValue();
+>>>>>>> First Draft
   // will trigger an event back to the main form
 
   
@@ -39,11 +43,19 @@ function updateGUI(rowSets) {
     history.data.forEach(function(item) {
       var d = new Date(item.TimeTaken);
       historyHtml +=
+<<<<<<< 2af76e1df2cb7b0310c279a79a698a37759252ef
         '<div><label class="date-label">' +
         d.toLocaleDateString() +
         '</label><label class="time-label">' +
         d.toLocaleTimeString() +
         '</label><.div><div class="text-journal">' +
+=======
+        '<div class="text-header"><label class="date-label">' +
+        d.toLocaleDateString() +
+        '</label><label class="time-label">' +
+        d.toLocaleTimeString() +
+        '</label></div><div class="text-journal">' +
+>>>>>>> First Draft
         ETA.Utils.Sanitize(item.Details) +
         "</div>";
     });
