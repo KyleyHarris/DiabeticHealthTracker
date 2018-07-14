@@ -1,14 +1,14 @@
 $(document).ready(function() {
-  HealthJournal.SleepReadings.Data.OnPageDataCallback = onSleepReadingPosted;
-  HealthJournal.SleepReadings.Data.onMesssageFailed = onSleepReadingPosted;
+  diabeticHealthTracker.SleepReadings.data.onPageDataCallback = onSleepReadingPosted;
+  diabeticHealthTracker.SleepReadings.data.onMesssageFailed = onSleepReadingPosted;
 
   $("#btnGo").click(postSleepReading);
   $("#reading-value").val(0);
   // will trigger an event back to the main form
 
   
-  ETA.User.CheckLoginStatus("/etalogin.html", function() {
-    HealthJournal.SleepReadings.Data.GetRecentData(onInitData);
+  eta.user.CheckLoginStatus("/etalogin.html", function() {
+    diabeticHealthTracker.SleepReadings.data.GetRecentData(onInitData);
   });
 });
 function resetDataAndGUI() {
@@ -24,10 +24,10 @@ function stringToFloat(v) {
   return value;
 }
 function postSleepReading(item) {
-  if (!ETA.User.valid()) return;
+  if (!eta.user.valid()) return;
   var currentValue = stringToFloat($("#reading-value").val());
   if (currentValue != 0) {
-    HealthJournal.SleepReadings.Data.AddReading(currentValue);
+    diabeticHealthTracker.SleepReadings.data.addReading(currentValue);
   }
 }
 
@@ -40,7 +40,7 @@ function clearSleepValue() {
 function updateGUI(rowSets) {
   SleepReadingsAppData.SettingsCreated = false;
 
-  var history = ETA.Utils.RowsByName("RecentReadings", rowSets);
+  var history = eta.utils.RowsByName("RecentReadings", rowSets);
   var historyHtml = "";
   if (history) {
     history.data.forEach(function(item) {
@@ -60,7 +60,7 @@ function updateGUI(rowSets) {
 }
 
 function onInitData(queryResult) {
-  if (!ETA.User.valid()) {
+  if (!eta.user.valid()) {
     resetDataAndGUI();
     return;
   }
@@ -81,7 +81,7 @@ function displayalert(text) {
 }
 
 function onSleepReadingPosted(queryResult) {
-  if (!ETA.User.valid()) {
+  if (!eta.user.valid()) {
     resetDataAndGUI();
     return;
   }

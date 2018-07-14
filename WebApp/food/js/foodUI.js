@@ -1,8 +1,8 @@
 var cameraButtonClicked = false;
 $(document).ready(function() {
     $('#upload').hide();
-    HealthJournal.Food.Data.OnPageDataCallback = onFoodReadingPosted;
-    HealthJournal.Food.Data.onMesssageFailed = onFoodReadingPosted;
+    diabeticHealthTracker.Food.data.onPageDataCallback = onFoodReadingPosted;
+    diabeticHealthTracker.Food.data.onMesssageFailed = onFoodReadingPosted;
 
     // Trigger the Camera button to initiate a photo select direct from camera
     // by binding to the file input
@@ -14,7 +14,7 @@ $(document).ready(function() {
     });
    
     // Link the File Picker to the display image.
-    ETA.Forms.bindImgToFilePicker(
+    eta.forms.bindImgToFilePicker(
       $('#food-capture'),
       $('#imgView') ,
        800,450,0.85);
@@ -23,7 +23,7 @@ $(document).ready(function() {
     document.getElementById("imgView").onload =function(){
       if(cameraButtonClicked)
       {
-        ETA.Forms.alertSuccess('msg', 'Great, if this is the right pic, click add to upload');
+        eta.forms.alertSuccess('msg', 'Great, if this is the right pic, click add to upload');
         $('#upload').show();
       }
     };
@@ -35,8 +35,8 @@ $(document).ready(function() {
   
   
     // verify we are logged in and do a preload of data
-    ETA.User.CheckLoginStatus("/etalogin.html", function() {
-      HealthJournal.Food.Data.GetRecentData(onInitData);
+    eta.user.CheckLoginStatus("/etalogin.html", function() {
+      diabeticHealthTracker.Food.data.GetRecentData(onInitData);
     });
   
   });
@@ -47,7 +47,7 @@ $(document).ready(function() {
   
   
   function postFoodReading(item) {
-    if (!ETA.User.valid()) return;
+    if (!eta.user.valid()) return;
 
     // no double clicks for now
     $('#upload').hide();
@@ -56,17 +56,17 @@ $(document).ready(function() {
     var dateNumStr= new Date().valueOf().toString();
     var foodFileName = 'food_'+dateNumStr;
     // file path generated based on developer account and project.
-    var filePath= 'storage/a-10000/p-4/private/u-'+ETA.User.Account.AccountNumber.toString()+'/food/'+foodFileName+'.jpg';
+    var filePath= 'storage/a-10000/p-4/private/u-'+eta.user.Account.AccountNumber.toString()+'/food/'+foodFileName+'.jpg';
     
-    ETA.Comms.putUserImg(filePath, $('#imgView')[0].src, true, function(statusCode){
+    eta.comms.putUserImg(filePath, $('#imgView')[0].src, true, function(statusCode){
       if(statusCode==200){
-        ETA.Forms.alertSuccess("msg","Image Uploaded, now saving Entry");
-        HealthJournal.Food.Data.AddFood(filePath);
+        eta.forms.alertSuccess("msg","Image Uploaded, now saving Entry");
+        diabeticHealthTracker.Food.data.addFood(filePath);
       } else
       {
         // allow retry just incase real comms error
         $('#upload').show();
-        ETA.Forms.alertError("msg","Could Not Save File. Status Code:" + statusCode.toString())
+        eta.forms.alertError("msg","Could Not Save File. Status Code:" + statusCode.toString())
       }
     });
 
@@ -75,7 +75,7 @@ $(document).ready(function() {
   
   function updateGUI(rowSets) {
 
-    var history = ETA.Utils.RowsByName("RecentReadings", rowSets);
+    var history = eta.utils.RowsByName("RecentReadings", rowSets);
     var historyHtml = "";
     var id=0;
     if (history) {
@@ -88,7 +88,7 @@ $(document).ready(function() {
           d.toLocaleDateString() +
           '</label><label class="time-label">' +
           d.toLocaleTimeString() +
-          '</label></div><img id="img_'+id.toString()+'" class="img-320240" src="'+ETA.Comms.Settings.apidomain+item.Picture+'?token='+encodeURIComponent(ETA.User.SessionToken)+'" alt="" />';
+          '</label></div><img id="img_'+id.toString()+'" class="img-320240" src="'+eta.comms.settings.apidomain+item.Picture+'?token='+encodeURIComponent(eta.user.sessionToken)+'" alt="" />';
       });
     }
   
@@ -97,30 +97,30 @@ $(document).ready(function() {
   }
   
   function onInitData(queryResult) {
-    if (!ETA.User.valid()) {
+    if (!eta.user.valid()) {
       resetDataAndGUI();
       return;
     }
   
     if (queryResult.Success) {
       updateGUI(queryResult.RowSets);
-    } else ETA.Forms.displayError(queryResult.Message);
+    } else eta.forms.displayError(queryResult.Message);
   }
 
   function onFoodReadingPosted(queryResult) {
-    if (!ETA.User.valid()) {
+    if (!eta.user.valid()) {
       resetDataAndGUI();
       return;
     }
     if (queryResult.Success) {
       onInitData(queryResult);
-      ETA.Forms.alertSuccess("msg","You're reading has been logged ");
-    } else ETA.Forms.alertError(queryResult.Message);
+      eta.forms.alertSuccess("msg","You're reading has been logged ");
+    } else eta.forms.alertError(queryResult.Message);
   }
   
 
   // for local debugging
- //  ETA.Comms.Settings.apidomain = "http://localhost:60775/";    
+ //  eta.comms.settings.apidomain = "http://localhost:60775/";    
 
 
 

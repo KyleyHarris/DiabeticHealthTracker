@@ -1,6 +1,6 @@
 $(document).ready(function() {
  
-   ETA.User.CheckLoginStatus("/etalogin.html",function(){
+   eta.user.CheckLoginStatus("/etalogin.html",function(){
      return;
    });
   

@@ -1,27 +1,27 @@
-HealthJournal.TextJournal = { 
-Data:{
+diabeticHealthTracker.TextJournal = { 
+data:{
     GetRecentData: function(callback){
-        var qry = HealthJournal.NewQuery();
+        var qry = diabeticHealthTracker.newQuery();
         this.GetRecentView(qry);
         qry.Run(callback,
-            HealthJournal.TextJournal.Data.onMessageFailed);
+            diabeticHealthTracker.TextJournal.data.onMessageFailed);
     }
-    ,AddNote:function(details){
+    ,addNote:function(details){
         // Send a message to the server that we just had a drink.
-        var qry = HealthJournal.NewQuery();
-        qry.Insert("Note", ["Details"],
+        var qry = diabeticHealthTracker.newQuery();
+        qry.insert("Note", ["Details"],
         {"Details":details});
         this.GetRecentView(qry);
-        qry.Run(HealthJournal.TextJournal.Data.OnPageDataCallback,
-                HealthJournal.TextJournal.Data.onMessageFailed);
+        qry.Run(diabeticHealthTracker.TextJournal.data.onPageDataCallback,
+                diabeticHealthTracker.TextJournal.data.onMessageFailed);
     }
-    ,OnPageDataCallback:null // assign this callback function when the server returns data to display
+    ,onPageDataCallback:null // assign this callback function when the server returns data to display
     ,onMessageFailed:null // assign this callback function when the server returns data to display
     ,GetRecentView:function(aQuery){
         var dt = new Date();
         dt.setMonth(dt.getMonth()-3);
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
-        aQuery.Select("RecentNotes",
+        aQuery.select("RecentNotes",
         {
             "sql": "select top 20 Details, TimeTaken \nfrom Note\nwhere \n _userid = @_userid order by TimeTaken desc",
             "token": "BJPAD9jnAiuOTJEmEmg0ZOrAY7ncaYj6O553EC67UqkdKX1IKVOvSLfupGuUQrSK6w/1n6hsxuru6rcVwbWhCDZ0eDgqLL8QTZjnIajJGXw="

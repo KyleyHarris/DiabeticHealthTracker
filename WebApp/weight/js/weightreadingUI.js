@@ -1,14 +1,14 @@
 $(document).ready(function() {
-  HealthJournal.WeightReadings.Data.OnPageDataCallback = onWeightReadingPosted;
-  HealthJournal.WeightReadings.Data.onMesssageFailed = onWeightReadingPosted;
+  diabeticHealthTracker.WeightReadings.data.onPageDataCallback = onWeightReadingPosted;
+  diabeticHealthTracker.WeightReadings.data.onMesssageFailed = onWeightReadingPosted;
 
   $("#btnGo").click(postWeightReading);
   $("#reading-value").val(0);
   // will trigger an event back to the main form
 
   
-  ETA.User.CheckLoginStatus("/etalogin.html", function() {
-    HealthJournal.WeightReadings.Data.GetRecentData(onInitData);
+  eta.user.CheckLoginStatus("/etalogin.html", function() {
+    diabeticHealthTracker.WeightReadings.data.GetRecentData(onInitData);
   });
 });
 function resetDataAndGUI() {
@@ -24,10 +24,10 @@ function stringToFloat(v) {
   return value;
 }
 function postWeightReading(item) {
-  if (!ETA.User.valid()) return;
+  if (!eta.user.valid()) return;
   var currentValue = stringToFloat($("#reading-value").val());
   if (currentValue != 0) {
-    HealthJournal.WeightReadings.Data.AddReading(currentValue);
+    diabeticHealthTracker.WeightReadings.data.addReading(currentValue);
   }
 }
 
@@ -40,7 +40,7 @@ function clearWeightValue() {
 function updateGUI(rowSets) {
   WeightReadingsAppData.SettingsCreated = false;
 
-  var history = ETA.Utils.RowsByName("RecentReadings", rowSets);
+  var history = eta.utils.RowsByName("RecentReadings", rowSets);
   var historyHtml = "";
   if (history) {
     history.data.forEach(function(item) {
@@ -60,7 +60,7 @@ function updateGUI(rowSets) {
 }
 
 function onInitData(queryResult) {
-  if (!ETA.User.valid()) {
+  if (!eta.user.valid()) {
     resetDataAndGUI();
     return;
   }
@@ -81,7 +81,7 @@ function displayalert(text) {
 }
 
 function onWeightReadingPosted(queryResult) {
-  if (!ETA.User.valid()) {
+  if (!eta.user.valid()) {
     resetDataAndGUI();
     return;
   }
@@ -93,4 +93,7 @@ function onWeightReadingPosted(queryResult) {
 
 // for local debugging
 
-//ETACommsSettings.apidomain = "http://localhost:60775/";
+//eta.comms.settings.apidomain = "http://localhost:60775/";
+
+
+

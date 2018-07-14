@@ -21,14 +21,14 @@
     <link rel="stylesheet" href="../css/site.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <meta charset="utf-8" />
-    <title>HealthJournal - Journal Entry</title>
+    <title>DHT - Journal Entry</title>
 </head>
 
 <body>
     <div class="app-header"><div class="app-logo"><i class="fas fa-file-alt"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
         <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
         <div class="google-signin">
-            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            <a href="#" id="g-signOut" onclick="eta.user.signOut(true);">Sign Out</span>
             </a>
         </div>
     </div>
@@ -39,14 +39,6 @@
 
         <div class="message hidden"></div>
         <div id="input-form" class="page-section">
-<<<<<<< 2af76e1df2cb7b0310c279a79a698a37759252ef
-            <textarea rows=3 cols=50 maxlength="290" required size="6" id="reading-value" onfocus="this.value=''" ></textarea>
-            <button type="button" class="button button-action button-pill" id="btnGo">Add</button>
-        </div>
-        <div id="history" class="page-section">
-            <h2>Last 50 Items</h2>
-            <div class="history-header"><label class="date-label">Date</label><label class="time-label">Time</label><label class="history-value">Journal Entry (Hrs)</label>
-=======
             <div>
             <textarea rows=3 cols=50 maxlength="290" required size="6" id="reading-value" onfocus="this.value=''" ></textarea>
         </div>
@@ -57,7 +49,6 @@
         <div id="history" class="page-section">
             <h2>Last 50 Items</h2>
             <div class="history-header"><label class="date-label">Date</label><label class="time-label">Time</label>
->>>>>>> First Draft
             </div>
             <div id="historyRows"></div>
         </div>
@@ -67,4 +58,4 @@
 </body>
 
 </html>
-<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=initDHTGoogleAuth" async defer></script>

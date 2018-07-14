@@ -1,7 +1,7 @@
 $(document).ready(function() {
   
-  HealthJournal.SugarReadings.Data.OnPageDataCallback = onSugarReadingPosted;
-  HealthJournal.SugarReadings.Data.onMessageFailed = onMessageFailed
+  diabeticHealthTracker.sugarReadings.data.onPageDataCallback = onSugarReadingPosted;
+  diabeticHealthTracker.sugarReadings.data.onMessageFailed = onMessageFailed
   $("#btnGo").click(postSugarReading);
   $("#reading-value").val(0);
   // will trigger an event back to the main form
@@ -9,14 +9,14 @@ $(document).ready(function() {
   
   
   
-  ETA.User.CheckLoginStatus("/etalogin.html",function(){
-    HealthJournal.SugarReadings.Data.GetTodayData(onInitData);
+  eta.user.CheckLoginStatus("/etalogin.html",function(){
+    diabeticHealthTracker.sugarReadings.data.getTodayData(onInitData);
   });
 });
 
 function updateUnitType(){
     var label = "";
-    if (HealthJournal.SugarReadings.Data.unitType ==1){
+    if (diabeticHealthTracker.sugarReadings.data.unitType ==1){
         label = "(mmol/L)";
     } 
 
@@ -36,17 +36,17 @@ function stringToFloat(v){
     return value;
 }
 function postSugarReading(item){
-  if(!ETA.User.valid()) return;
+  if(!eta.user.valid()) return;
   var currentValue = stringToFloat($("#reading-value").val());
   if(currentValue!=0){
-    HealthJournal.SugarReadings.Data.AddReading(currentValue);      
+    diabeticHealthTracker.sugarReadings.data.addReading(currentValue);      
   }
 
 }
 function onMessageFailed(queryResult){
     $("#btnGO").enable();
      displayalert("ERROR: "+queryResult.Message);
-    if(!ETA.User.valid()) {
+    if(!eta.user.valid()) {
         resetDataAndGUI();
         return;
     }
@@ -59,8 +59,8 @@ function clearSugarValue(){$("#reading-value").val(null)};
 function updateGUI(rowSets){
     SugarReadingsAppData.SettingsCreated = false;
     
-    var history = ETA.Utils.RowsByName("RecentReadings", rowSets);
-    var hba1c = ETA.Utils.ResultByName("hba1c", rowSets).hba1c;
+    var history = eta.utils.RowsByName("RecentReadings", rowSets);
+    var hba1c = eta.utils.resultByName("hba1c", rowSets).hba1c;
     var todayTotal = 0;
     var todayStr = new Date().toLocaleDateString();
     var historyHtml = "";
@@ -120,7 +120,7 @@ function updateGUI(rowSets){
 }
 
 function onInitData(queryResult){
-    if(!ETA.User.valid()) {
+    if(!eta.user.valid()) {
         resetDataAndGUI();
         return;
     }
@@ -144,7 +144,7 @@ function displayalert(text){
 }
 
 function onSugarReadingPosted(queryResult){
-    if(!ETA.User.valid()) {
+    if(!eta.user.valid()) {
         resetDataAndGUI();
         return;
     }

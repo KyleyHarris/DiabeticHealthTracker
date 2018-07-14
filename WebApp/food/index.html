@@ -17,13 +17,13 @@
 
     <script src="../js/healthjournal.js"></script>
     <script src="../js/healthjournalUI.js"></script>
-    <script src="/js/megapix-image.js"></script>
-    <script src="/js/pica.min.js"></script>
+    <script src="https://entertheapi.azurewebsites.net/js/megapix-image.js"></script>
+    
 
     <script src="./js/food.js"></script>
     <script src="./js/foodUI.js"></script>
     <meta charset="utf-8" />
-    <title>HealthJournal - Food</title>
+    <title>DHT - Food</title>
 </head>
 
 <body>
@@ -34,7 +34,7 @@
         </div>
         <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
         <div class="google-signin">
-            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            <a href="#" id="g-signOut" onclick="eta.user.signOut(true);">Sign Out</span>
             </a>
         </div>
     </div>
@@ -76,4 +76,4 @@
 </body>
 
 </html>
-<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=initDHTGoogleAuth" async defer></script>

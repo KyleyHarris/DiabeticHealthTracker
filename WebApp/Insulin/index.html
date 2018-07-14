@@ -19,14 +19,14 @@
     <link rel="stylesheet" href="../css/site.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <meta charset="utf-8" />
-    <title>HealthJournal - Insulin Dosing</title>
+    <title>DHT - Insulin Dosing</title>
 </head>
 
 <body>
     <div class="app-header"><div class="app-logo"><i class="fas fa-syringe"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
         <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
         <div class="google-signin">
-            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span>
+            <a href="#" id="g-signOut" onclick="eta.user.signOut(true);">Sign Out</span>
             </a>
         </div>
     </div>
@@ -47,9 +47,7 @@
                 </div>
             </div>
             <div id="history" class="page-section">
-            <h2>Today's History</h2>
-            <div class="history-header"><label class="time-label">Time</label><label class="history-type">Type</label></label><label class="history-value">Units mmol/L</label>
-            </div>
+            <h2>Recent History</h2>
             <div id="historyRows"></div>
         </div>
     </div>
@@ -58,4 +56,4 @@
 </body>
 
 </html>
-<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=initDHTGoogleAuth" async defer></script>

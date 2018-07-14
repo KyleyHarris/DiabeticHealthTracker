@@ -1,40 +1,40 @@
-HealthJournal.InsulinRecordings = { // add water intake to the HealthJournal Singleton
-Data:{
-    GetTodayData: function(callback){
-        var qry = HealthJournal.NewQuery();
-        this.GetTodayView(qry);
+diabeticHealthTracker.InsulinRecordings = { // add water intake to the diabeticHealthTracker Singleton
+data:{
+    getTodayData: function(callback){
+        var qry = diabeticHealthTracker.newQuery();
+        this.getTodayView(qry);
         qry.Run(callback,
-            HealthJournal.InsulinRecordings.Data.onMessageFailed);
+            diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
     }
-    ,AddInsulinType:function(aName){
-        var qry = HealthJournal.NewQuery();
-        qry.Insert("InsulinType", ["Name"],
+    ,addInsulinType:function(aName){
+        var qry = diabeticHealthTracker.newQuery();
+        qry.insert("InsulinType", ["Name"],
         {"Name":aName});
-        this.GetTodayView(qry);
-        qry.Run(HealthJournal.InsulinRecordings.Data.onRecordingsHistoryReceived,
-                HealthJournal.InsulinRecordings.Data.onMessageFailed);
+        this.getTodayView(qry);
+        qry.Run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
+                diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
     }
-    ,AddRecording:function(amount, insulinTypeId){
+    ,addRecording:function(amount, insulinTypeId){
         // Send a message to the server that we just had a drink.
-        var qry = HealthJournal.NewQuery();
-        qry.Insert("InsulinRecording", ["Amount", "InsulinTypeId"],
+        var qry = diabeticHealthTracker.newQuery();
+        qry.insert("InsulinRecording", ["Amount", "InsulinTypeId"],
         {"Amount":amount,InsulinTypeId:insulinTypeId});
-        this.GetTodayView(qry);
-        qry.Run(HealthJournal.InsulinRecordings.Data.onRecordingsHistoryReceived,
-                HealthJournal.InsulinRecordings.Data.onMessageFailed);
+        this.getTodayView(qry);
+        qry.Run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
+                diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
     }
     ,onRecordingsHistoryReceived:null // assign this callback function when the server returns data to display
     ,onMessageFailed:null // assign this callback function when the server returns data to display
-    ,GetTodayView:function(aQuery){
+    ,getTodayView:function(aQuery){
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
-        aQuery.Select("TodaysRecordings",
+        aQuery.select("TodaysRecordings",
         {
-            "sql": "select\n  Amount, \n  it.Name InsulinType_Name,\n  TimeTaken\nfrom InsulinRecording ir\n  left join InsulinType it on (it._id = ir.InsulinTypeId)\nwhere TimeTaken between @start and @end\nand ir._userId = @_userId\nOrder By TimeTaken",
-            "token": "ySqzvRWjpXl/MdSIV0LqHItMgr1N73T8mPZPSDcD2xwNjadBkBATItMfe8mviCxmTyCHmzOIDX4exlbxvWSPc4tf+9qCvC8339rKZ1bD+F4="
-        }        ,
-          {"start":aQuery.Format.sqlDateTime(ETA.Utils.DateFloor()),
-           "end":aQuery.Format.sqlDateTime(ETA.Utils.DateCeiling())});
-        aQuery.Select("InsulinType",
+            "sql": "DECLARE @MinDate DateTime\nSET @MinDate  =CAST(FLOOR(CAST(GetUTCDate() AS float)) AS DATETIME)-5\nselect\n  Amount, \n  it.Name InsulinType_Name,\n  TimeTaken\nfrom InsulinRecording ir\n  left join InsulinType it on (it._id = ir.InsulinTypeId)\nwhere TimeTaken > CASE WHEN @start > @MinDate THEN @start ELSE @MinDate END\n and ir._userid = @_userid order by TimeTaken DESC",
+            "token": "Oz9xyYVQ+egfxwhf6EKzM+jK62s4/vCVh1SsrR77tKUNDveJ6aQs1V2ULvhxF7jOhH71z1/HzZkcUAN9R0usOAWxHv1XWHXKz+kjxw0NCi8="
+          
+        }      ,
+        {"start":aQuery.format.sqlDateTime(eta.utils.addDays(-3,eta.utils.dateFloor()))});
+        aQuery.select("InsulinType",
         {
             "sql": "select\n  _Id, \n  Name\nfrom InsulinType where _userId = @_userId",
             "token": "lAuHeDFHFQvA3GpHrMpsUHsn93jr/c3LbN6Ahw3c5N2508BWtXWeM8bcFFpQl7C8O0LsnweFRdnblVnkhKHVhAfL1ZhqktYfJIAH0qCJF7k="

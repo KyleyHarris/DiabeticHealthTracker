@@ -1,34 +1,34 @@
-HealthJournal.WeightReadings = { 
-Data:{
+diabeticHealthTracker.WeightReadings = { 
+data:{
     GetRecentData: function(callback){
-        var qry = HealthJournal.NewQuery();
+        var qry = diabeticHealthTracker.newQuery();
         this.GetRecentView(qry);
         qry.Run(callback,
-            HealthJournal.WeightReadings.Data.onMessageFailed);
+            diabeticHealthTracker.WeightReadings.data.onMessageFailed);
     }
-    ,AddReading:function(amount){
+    ,addReading:function(amount){
         // Send a message to the server that we just had a drink.
-        var qry = HealthJournal.NewQuery();
-        qry.Insert("WeightReading", ["Amount"],
+        var qry = diabeticHealthTracker.newQuery();
+        qry.insert("WeightReading", ["Amount"],
         {"Amount":amount});
         this.GetRecentView(qry);
-        qry.Run(HealthJournal.WeightReadings.Data.OnPageDataCallback,
-                HealthJournal.WeightReadings.Data.onMessageFailed);
+        qry.Run(diabeticHealthTracker.WeightReadings.data.onPageDataCallback,
+                diabeticHealthTracker.WeightReadings.data.onMessageFailed);
     }
-    ,OnPageDataCallback:null // assign this callback function when the server returns data to display
+    ,onPageDataCallback:null // assign this callback function when the server returns data to display
     ,onMessageFailed:null // assign this callback function when the server returns data to display
     ,GetRecentView:function(aQuery){
         var dt = new Date();
         dt.setMonth(dt.getMonth()-3);
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
-        aQuery.Select("RecentReadings",
+        aQuery.select("RecentReadings",
         {
             "sql": "select Amount, TimeTaken \nfrom WeightReading \nwhere \nTimeTaken between @start and @end and _userid = @_userid order by TimeTaken desc",
             "token": "kKDBa5uRWr181PnT/KyUpBgQzO2p7Afv5rAebdluBWXwWAS8SDu0CnTemWs9/iha5Gs/VCmLFxdzCJWkxYQruhNiado5MZuxFOff/wnAcNE="
         }
         ,
-          {"start":aQuery.Format.sqlDateTime(dt),
-           "end":aQuery.Format.sqlDateTime(ETA.Utils.DateCeiling())});
+          {"start":aQuery.format.sqlDateTime(dt),
+           "end":aQuery.format.sqlDateTime(eta.utils.dateCeiling())});
         
     }
 }

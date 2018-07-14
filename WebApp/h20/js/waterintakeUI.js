@@ -1,6 +1,6 @@
 $(document).ready(function() {
-    HealthJournal.WaterIntake.Data.onFluidHistoryReceived = onWaterValuePosted;
-    HealthJournal.WaterIntake.Data.onMessageFailed = onMessageFailed
+    diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived = onWaterValuePosted;
+    diabeticHealthTracker.WaterIntake.data.onMessageFailed = onMessageFailed
     $(".water-button").click(clickWaterButton);
     $("#btnGo").click(postWaterValue);
     $("#water-value").val(0);
@@ -9,8 +9,8 @@ $(document).ready(function() {
   $("#btnAdd").click(postWaterType);
 
   
-  ETA.User.CheckLoginStatus("/etalogin.html",function(){
-    HealthJournal.WaterIntake.Data.GetTodayData(onInitData);
+  eta.user.CheckLoginStatus("/etalogin.html",function(){
+    diabeticHealthTracker.WaterIntake.data.getTodayData(onInitData);
   });
 
 })
@@ -26,7 +26,7 @@ function stringToInt(v){
     return value;
 }
 function clickWaterButton(item){
-    if(!ETA.User.valid()) return;
+    if(!eta.user.valid()) return;
 
     var currentValue = stringToInt($("#water-value").val());
   var amount = stringToInt( item.currentTarget.getAttribute("value")) + currentValue;
@@ -35,39 +35,39 @@ function clickWaterButton(item){
   
 }
 function postWaterValue(item){
-  if(!ETA.User.valid()) return;
+  if(!eta.user.valid()) return;
   var waterTypeId = $(item.currentTarget).attr('WaterTypeId');
   if(!waterTypeId || waterTypeId=="")
    waterTypeId = null;
   var currentValue = stringToInt($("#water-value").val());
   if(currentValue!=0){
     $("#btnGO").disable();
-    HealthJournal.WaterIntake.Data.AddFluid(currentValue, new Date(), waterTypeId);      
+    diabeticHealthTracker.WaterIntake.data.addFluid(currentValue, new Date(), waterTypeId);      
   }
 
 }
 function postWaterType()
 {
-    if(!ETA.User.valid()) return;
+    if(!eta.user.valid()) return;
     var currentValue = $("#new-fluid-type").val();
     $("#new-fluid-type").val("");
     if(currentValue!=""){
-      HealthJournal.WaterIntake.Data.AddWaterType(currentValue);      
+      diabeticHealthTracker.WaterIntake.data.addWaterType(currentValue);      
     }
   
 }
 
 function postSettings(item){
-    if(!ETA.User.valid()) return;
+    if(!eta.user.valid()) return;
     var currentValue = stringToInt($("#water-value-perday").val());
     if(currentValue!=0){
         if( WaterIntakeAppData.SettingsCreated)
         {
-            HealthJournal.WaterIntake.Settings.UpdateDailyLimit(currentValue);      
+            diabeticHealthTracker.WaterIntake.Settings.updateDailyLimit(currentValue);      
         }
         else
         {
-            HealthJournal.WaterIntake.Settings.AddDailyLimit(currentValue);      
+            diabeticHealthTracker.WaterIntake.Settings.addDailyLimit(currentValue);      
         }
     }
   
@@ -79,20 +79,24 @@ function clearWaterValue(){$("#water-value").val(null)};
 
 function updateGUI(rowSets){
     WaterIntakeAppData.SettingsCreated = false;
-    var settings = ETA.Utils.RowsByName("settings", rowSets);
+    var settings = eta.utils.RowsByName("settings", rowSets);
     if(settings)
     {
       if (settings.data.length==1) {
         WaterIntakeAppData.SettingsCreated = true;
         WaterIntakeAppData.VolumePerDayTarget_mls = settings.data[0].VolumePerDayTarget_mls;
+        $(".settings-section").hide();
+        $(".main-section").show();
 
       } else
       {
         WaterIntakeAppData.VolumePerDayTarget_mls = 8*300;
+        $(".settings-section").show();
+        $(".main-section").hide();
       }
       $("#water-value-perday").val(WaterIntakeAppData.VolumePerDayTarget_mls);
     } 
-    var history = ETA.Utils.RowsByName("TodaysWater", rowSets);
+    var history = eta.utils.RowsByName("TodaysWater", rowSets);
     var todayTotal_mls = 0;
     var historyHtml = "";
     if(history)
@@ -101,18 +105,18 @@ function updateGUI(rowSets){
         history.data.forEach(function(item){ 
             todayTotal_mls+=item.Volume_mls;
             var d = new Date(item.FinishedConsumingAt);
-            historyHtml+='<div><label class="history-time">'+d.toLocaleTimeString()+'</label><label class="history-value">'+ETA.Utils.Sanitize(item.WaterType)+'</label><span class="history-value">'+item.Volume_mls+'mls</span></div>';
+            historyHtml+='<div><label class="history-time">'+d.toLocaleTimeString()+'</label><label class="history-value">'+eta.utils.sanitize(item.WaterType)+'</label><span class="history-value">'+item.Volume_mls+'mls</span></div>';
         });
 
     }
-    var waterTypes =  ETA.Utils.RowsByName("WaterType", rowSets);
+    var waterTypes =  eta.utils.RowsByName("WaterType", rowSets);
     var waterTypeHtml = "";
     if(waterTypes)
     {
         waterTypes.data.forEach(function(item){ 
             waterTypeHtml+=
             //'<div class="add-water">'+
-            '<button id="btnAddWater-'+item._Id+'" WaterTypeId="'+item._Id+'" class="add-water-button dynamic-water-button button-width-small button button-primary button-pill button-icon-txt-large">'+ETA.Utils.Sanitize(item.Name)+'</button>';
+            '<button id="btnAddWater-'+item._Id+'" WaterTypeId="'+item._Id+'" class="add-water-button dynamic-water-button button-width-small button button-primary button-pill button-icon-txt-large">'+eta.utils.sanitize(item.Name)+'</button>';
             //'</div>';
         });
 
@@ -132,7 +136,7 @@ function updateGUI(rowSets){
 function onMessageFailed(queryResult){
     $("#btnGO").enable();
      displayalert("ERROR: "+queryResult.Message);
-    if(!ETA.User.valid()) {
+    if(!eta.user.valid()) {
         resetDataAndGUI();
         return;
     }
@@ -140,7 +144,7 @@ function onMessageFailed(queryResult){
 
 }
 function onInitData(queryResult){
-    if(!ETA.User.valid()) {
+    if(!eta.user.valid()) {
         resetDataAndGUI();
         return;
     }
@@ -166,7 +170,7 @@ function displayalert(text){
 
 function onWaterValuePosted(queryResult){
     $("#btnGO").enable();
-    if(!ETA.User.valid()) {
+    if(!eta.user.valid()) {
         resetDataAndGUI();
         return;
     }

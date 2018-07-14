@@ -70,6 +70,12 @@ input {
     margin-right:6px;
     text-align:left;
 }
+.settings-section{
+    margin-left:6px;
+    margin-right:6px;
+    text-align:left;
+}
+
 p {
     text-align:justify;
     margin:1rem;
@@ -151,6 +157,13 @@ vertical-align: middle;
     margin-bottom: 1rem;
 }
 
+.settings-click{
+   color:black !important;
+        float: right !important;
+    
+      
+
+}
 .time-label{
     width: 7rem;
     margin-right: 6px;

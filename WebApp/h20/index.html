@@ -21,19 +21,22 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../css/site.css" />
     <link rel="stylesheet" href="./css/site.css" />
-    <title>HealthJournal - Water</title>
+    <title>DHT - Water</title>
 </head>
 
 <body>
     <div class="app-header"> <div class="app-logo"><i class="fas fa-tint"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
         <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
         <div class="google-signin">
-            <a href="#" id="g-signout" onclick="ETA.User.SignOut(true);">Sign Out</span></a>
+            <a href="#" id="g-signOut" onclick="eta.user.signOut(true);">Sign Out</span></a>
         </div>
     </div>
-    <div id="error"></div><div class="main-section">
+    <div id="error"></div>
+    <div class="main-section">
+        <div class="main-title">
+        <h2>Water (95%+) fluids<button class="settings-click"><i class="fas fa-cogs"></i></button></h2>
         
-        <h2>Water (95%+) fluids</h2>
+    </div>
         <div class="page-section">
             <div>
                 <label class="summary-label">Today You've had:</label>
@@ -67,24 +70,24 @@
                 </div>
                 <div id="historyRows"></div>
             </div>
-            <div id="settings" class="page-section">
-                    <h2> Settings</h2>
-                    
-                    <div class="add-fluid-dose">
-                       
-                        Per Day (mls)<input type="number" min="25" max="18000" required size="5" id="water-value-perday" onfocus=""/>
-                    <button type="button" class="button  button-highlight button-pill" id="btnUpdateSettings">Update</button>
-                    </div>
-                    <div class="add-fluid-dose">
-                            <input type="text" id="new-fluid-type" size=12 maxlength="25" /><button id="btnAdd" class="button button-action button-pill">Add Type</button>
-                        </div>
-    
-                </div>
+        
     
         </div>
     </div>
+    <div id="settings" class="settings-section">
+        <h2> Settings</h2>
+        
+        <div class="add-fluid-dose">
+           
+            Per Day (mls)<input type="number" min="25" max="18000" required size="5" id="water-value-perday" onfocus=""/>
+        <button type="button" class="button  button-highlight button-pill" id="btnUpdateSettings">Update</button>
+        </div>
+        <div class="add-fluid-dose">
+                <input type="text" id="new-fluid-type" size=12 maxlength="25" /><button id="btnAdd" class="button button-action button-pill">Add Type</button>
+            </div>
 
+    </div>
 </body>
 
 </html>
-<script src="https://apis.google.com/js/platform.js?onload=initGoogleAuth" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=initDHTGoogleAuth" async defer></script>

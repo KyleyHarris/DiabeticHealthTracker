@@ -1,18 +1,14 @@
 $(document).ready(function() {
-  HealthJournal.TextJournal.Data.OnPageDataCallback = onNoteReadingPosted;
-  HealthJournal.TextJournal.Data.onMesssageFailed = onNoteReadingPosted;
+  diabeticHealthTracker.TextJournal.data.onPageDataCallback = onNoteReadingPosted;
+  diabeticHealthTracker.TextJournal.data.onMesssageFailed = onNoteReadingPosted;
 
   $("#btnGo").click(postNoteReading);
-<<<<<<< 2af76e1df2cb7b0310c279a79a698a37759252ef
-  $("#reading-value").val(0);
-=======
   clearNoteValue();
->>>>>>> First Draft
   // will trigger an event back to the main form
 
   
-  ETA.User.CheckLoginStatus("/etalogin.html", function() {
-    HealthJournal.TextJournal.Data.GetRecentData(onInitData);
+  eta.user.CheckLoginStatus("/etalogin.html", function() {
+    diabeticHealthTracker.TextJournal.data.GetRecentData(onInitData);
   });
 });
 function resetDataAndGUI() {
@@ -21,10 +17,10 @@ function resetDataAndGUI() {
 }
 
 function postNoteReading(item) {
-  if (!ETA.User.valid()) return;
+  if (!eta.user.valid()) return;
   var currentValue = $("#reading-value").val();
   if (currentValue != "") {
-    HealthJournal.TextJournal.Data.AddNote(currentValue);
+    diabeticHealthTracker.TextJournal.data.addNote(currentValue);
   }
 }
 
@@ -37,26 +33,18 @@ function clearNoteValue() {
 function updateGUI(rowSets) {
   TextJournalAppData.SettingsCreated = false;
 
-  var history = ETA.Utils.RowsByName("RecentNotes", rowSets);
+  var history = eta.utils.RowsByName("RecentNotes", rowSets);
   var historyHtml = "";
   if (history) {
     history.data.forEach(function(item) {
       var d = new Date(item.TimeTaken);
       historyHtml +=
-<<<<<<< 2af76e1df2cb7b0310c279a79a698a37759252ef
-        '<div><label class="date-label">' +
-        d.toLocaleDateString() +
-        '</label><label class="time-label">' +
-        d.toLocaleTimeString() +
-        '</label><.div><div class="text-journal">' +
-=======
         '<div class="text-header"><label class="date-label">' +
         d.toLocaleDateString() +
         '</label><label class="time-label">' +
         d.toLocaleTimeString() +
         '</label></div><div class="text-journal">' +
->>>>>>> First Draft
-        ETA.Utils.Sanitize(item.Details) +
+        eta.utils.sanitize(item.Details) +
         "</div>";
     });
   }
@@ -65,7 +53,7 @@ function updateGUI(rowSets) {
 }
 
 function onInitData(queryResult) {
-  if (!ETA.User.valid()) {
+  if (!eta.user.valid()) {
     resetDataAndGUI();
     return;
   }
@@ -86,7 +74,7 @@ function displayalert(text) {
 }
 
 function onNoteReadingPosted(queryResult) {
-  if (!ETA.User.valid()) {
+  if (!eta.user.valid()) {
     resetDataAndGUI();
     return;
   }
