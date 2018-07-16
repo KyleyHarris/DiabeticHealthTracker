@@ -117,8 +117,9 @@ function updateGUI(rowSets){
         width:"100%",
         inserting:false,
         editing:false,
-        sorting:true,
+        sorting:false,
         paging:false  ,
+        heading:false,
     data:[
              {information:"Today",Amount:SugarReadingsAppData.todayTotal,label:"readings"}
             ,{information:"Your Low",Amount:SugarReadingsAppData.todayMin,label:diabeticHealthTracker.sugarReadings.unitTypeLabel}
@@ -128,8 +129,8 @@ function updateGUI(rowSets){
         ],
         fields:[
             {name:"information",title:"Info", type:"text"},
-            {name:"Amount",title:"Amount", type:"number"},
-            {name:"label", title:"", type:"text"}
+            {name:"Amount",title:"Amount", type:"number", width:"60px"},
+            {name:"label", title:"", type:"text", width:"60px"}
             
         ]   
       });

@@ -39,36 +39,29 @@
     <div id="error"></div>
     <div class="main-section">
         <div class="main-title">
-        <h2>Water (95%+) fluids<button class="settings-click"><i class="fas fa-cog"></i></button></h2>
+        <h2>Water ( or 95%+ fluids) <button class="settings-click"><i class="fas fa-cog"></i></button></h2>
         </div>
-        <div class="page-section">
-            <div>
-                <label class="summary-label">Today You've had:</label>
-                <span class="history-value" id="todayTotal_mls"></span>(mls)</div>
-            <div>
-                <label class="summary-label">Remaining to drink:</label>
-                <span class="history-value" id="todayRemaining_mls"></span>(mls)</div>
+        <div class="message hidden"></div>
+        <div id="input-form" class="center" >
+            How much did you drink? (mls)<br>
+            <input class="primary-editor number-edit" type="number" min="0" max="4000" required size="6" id="water-value" onfocus="this.value=''" />
+            <button type="button" class="add-water-button button-width-small button button-action button-pill button-icon-txt-large " id="btnGo">Water</button>
+        </div>
+        <div class="center page-section">
+            <span id="extra-buttons"></span>
         </div>
         <div class="water-section">
-            <div class="water-buttons page-section">
-                <button type="button" class="button  button-highlight water-button" value=25>+25mls</button>
-                <button type="button" class="button  button-highlight water-button" value=50>+50mls</button>
-                <button type="button" class="button  button-highlight water-button" value=100>+100mls</button>
-                <button type="button" class="button  button-highlight water-button" value=250>+250mls</button>
-                <button type="button" class="button  button-highlight water-button" value=300>+300mls</button>
-                <button type="button" class="button  button-highlight water-button" value=350>+350mls</button>
-                <button type="button" class="button  button-highlight water-button" value=500>+500mls</button>
-                <button type="button" class="button  button-highlight water-button-clear" onclick="clearWaterValue()">Clear</button>
+                <div class="water-buttons page-section">
+                    <button type="button" class="button  button-highlight water-button" value=25>+25mls</button>
+                    <button type="button" class="button  button-highlight water-button" value=50>+50mls</button>
+                    <button type="button" class="button  button-highlight water-button" value=100>+100mls</button>
+                    <button type="button" class="button  button-highlight water-button" value=200>+200mls</button>
+                    <button type="button" class="button  button-highlight water-button" value=300>+300mls</button>
+                    <button type="button" class="button  button-highlight water-button" value=400>+400mls</button>
+                    <button type="button" class="button  button-highlight water-button" value=500>+500mls</button>
+                    <button type="button" class="button  button-highlight water-button-clear" onclick="clearWaterValue()">Clear</button>
+                </div>
             </div>
-            <div class="message hidden"></div>
-            <div id="input-form" class="center" >
-                How much did you drink?<br>
-                <input class="primary-editor number-edit" type="number" min="0" max="4000" required size="6" id="water-value" onfocus="this.value=''" />(mls)
-            </div>
-            <div class="center page-section">
-                <button type="button" class="add-water-button button-width-small button button-action button-pill button-icon-txt-large " id="btnGo">Water</button><span id="extra-buttons"></span>
-            </div>
-        </div>
     </div>
     <div id="settings" class="settings-section">
         <h2>Water Settings<button class="return-click"><i class="fas fa-angle-double-left"></i></i></button></h2>
@@ -82,6 +75,15 @@
         </div>
 
     </div>
+    <div class="page-section">
+            <h2>Today Summary</h2>
+            <div>
+                <label class="summary-label">Today You've had:</label>
+                <span class="history-value" id="todayTotal_mls"></span>(mls)</div>
+            <div>
+                <label class="summary-label">Remaining to drink:</label>
+                <span class="history-value" id="todayRemaining_mls"></span>(mls)</div>
+        </div>
     <div id="history" class="history-section page-section">
         <h2>Recent History</h2>
         <div id="history-rows"></div>

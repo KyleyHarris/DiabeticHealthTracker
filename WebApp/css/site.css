@@ -211,7 +211,10 @@ vertical-align: middle;
     width:10rem;
     display:inline-block;
 }
-.button{margin-bottom: 6px; margin-left: 6px;}
+.button{
+    margin-bottom: 6px;
+     margin-left: 6px;
+vertical-align: middle;}
 
 .number-edit {
     width:125px;
