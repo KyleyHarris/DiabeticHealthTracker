@@ -12,6 +12,10 @@
     <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/font-awesome/all.css" />
     <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
 
+    <script type="text/javascript" src="https://entertheapi.azurewebsites.net/js/jsgrid.min.js"></script>    
+    <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid-theme.min.css" />
+
     <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
     <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>        
 
@@ -33,7 +37,8 @@
         </div>
     </div>
 
-    <div id="error"></div><div class="main-section">
+    <div id="error"></div>
+    <div class="main-section">
         
         <h2>Weight</h2>
 
@@ -42,13 +47,11 @@
             <input type="number" min="0" max="40" required size="6" id="reading-value" onfocus="this.value=''" />(Kg)
             <button type="button" class="button button-action button-pill" id="btnGo">Add</button>
         </div>
-        <div id="history" class="page-section">
-            <h2>Last 3 Month History</h2>
-            <div class="history-header"><label class="date-label">Date</label><label class="time-label">Time</label><label class="history-value">Weight (Kg)</label>
-            </div>
-            <div id="historyRows"></div>
-        </div>
     </div>
+    <div id="history" class="history-section page-section">
+            <h2>Last 3 Month History</h2>
+            <div id="history-rows"></div>
+     </div>
 
 
 </body>

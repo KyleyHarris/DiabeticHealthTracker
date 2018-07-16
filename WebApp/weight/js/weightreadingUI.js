@@ -43,20 +43,28 @@ function updateGUI(rowSets) {
   var history = eta.utils.RowsByName("RecentReadings", rowSets);
   var historyHtml = "";
   if (history) {
-    history.data.forEach(function(item) {
-      var d = new Date(item.TimeTaken);
-      historyHtml +=
-        '<div><label class="date-label">' +
-        d.toLocaleDateString() +
-        '</label><label class="time-label">' +
-        d.toLocaleTimeString() +
-        '</label><span class="history-value">' +
-        item.Amount +
-        "</span></div>";
+    $('#history-rows').jsGrid({
+      width:"100%",
+      inserting:false,
+      editing:false,
+      sorting:true,
+      paging:false,
+      rowClass:function(item, itemIndex){
+          return getTimeBasedAlternateRowClass(item, itemIndex, 'TimeTaken', this.data);
+
+      },
+          data:history.data,
+      fields:[
+          {name:"TimeTaken",title:"Date", type:"date"},
+          {name:"TimeTaken", title:"Time", type:"time"},
+          
+          {name:"Amount",title:"Amount (Kg)", type:"number",
+            itemTemplate:function(value){return diabeticHealthTracker.math.round2dp(value).toFixed(2);}}
+      ]   
     });
+
   }
 
-  $("#historyRows").html(historyHtml);
 }
 
 function onInitData(queryResult) {

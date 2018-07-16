@@ -21,6 +21,7 @@ h2{
     color:darkgray;
     font-variant: small-caps;
     text-align:center;
+    line-height:2.5rem;
 }
 
 .center{
@@ -158,12 +159,14 @@ vertical-align: middle;
 }
 
 .settings-click{
-   color:black !important;
-        float: right !important;
-    
-      
-
+   
+   float: right !important;
 }
+.return-click{
+   
+    float: right !important;
+ }
+ 
 .time-label{
     width: 7rem;
     margin-right: 6px;
@@ -211,7 +214,9 @@ vertical-align: middle;
 .button{margin-bottom: 6px; margin-left: 6px;}
 
 .number-edit {
-    width:5rem;
+    width:125px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
 .name-edit {
@@ -248,3 +253,44 @@ vertical-align: middle;
     background-color: beige;
     border:1px solid brown;
 }
+
+.settings-section  label 
+{
+    display: block;
+    font-weight: bold;
+   margin-bottom: 6px;
+}
+
+.settings-section  input
+{
+  
+    margin-bottom: 6px;
+    margin-right: 12px;
+    
+}
+.settings-section .option {
+    padding:1rem;
+    border-bottom: 2px solid darkgreen;
+    margin-bottom: 1rem;
+}
+
+.settings-section .buttons {
+    margin-left: 2rem;
+}
+
+
+.jsgrid-table{
+    border-collapse: collapse !important;
+    }
+    
+
+    .jsgrid-row-break {
+        border-top: 2px solid darkblue;
+    }    
+
+    .jsgrid-dht-alt-row {
+        background: lemonchiffon;
+    }
+    .jsgrid-dht-alt-row .jsgrid-cell{
+        background: lemonchiffon;
+    }

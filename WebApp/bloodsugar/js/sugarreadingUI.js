@@ -17,9 +17,10 @@ $(document).ready(function() {
 function updateUnitType(){
     var label = "";
     if (diabeticHealthTracker.sugarReadings.data.unitType ==1){
-        label = "(mmol/L)";
+        label = "mmol/L";
+        diabeticHealthTracker.sugarReadings.unitTypeLabelHba1c = "mmol/mol";
     } 
-
+    diabeticHealthTracker.sugarReadings.unitTypeLabel = label;
     $('.unit-type').html(label);
 }
 
@@ -70,9 +71,26 @@ function updateGUI(rowSets){
     var headerDate ="";
     if(history)
     {
+        $('#history-rows').jsGrid({
+            width:"100%",
+            inserting:false,
+            editing:false,
+            sorting:true,
+            paging:false,
+            rowClass:function(item, itemIndex){
+                return getTimeBasedAlternateRowClass(item, itemIndex, 'TimeTaken', this.data);
+
+            },
+                data:history.data,
+            fields:[
+                {name:"TimeTaken",title:"Date", type:"date"},
+                {name:"TimeTaken", title:"Time", type:"time"},
+                
+                {name:"Amount",title:"Amount", type:"number"}
+            ]   
+          });
+
         history.data.forEach(function(item){ 
-
-
             var d = new Date(item.TimeTaken);
             var dateStr = d.toLocaleDateString();
             if(dateStr==todayStr){
@@ -81,20 +99,6 @@ function updateGUI(rowSets){
               if (item.Amount < todayMin || todayMin == 0) todayMin = item.Amount;
               if (item.Amount > todayMax) todayMax = item.Amount;
             }
-
-            if(dateStr !=headerDate){
-                historyHtml+='<div class="history-date-header">Readings for: '+dateStr+'</div>'+
-                '<div class="history-header"><label class="time-label">Time</label><label class="history-value"><span class="unit-type"></span></label></div>';
-                ;
-                headerDate = dateStr;
-            }
-            historyHtml +=
-            '<div><label class="time-label">' +
-            d.toLocaleTimeString() +
-            '</label><span class="history-value">' +
-            item.Amount +
-            "</span></div>";
-            //historyHtml+='<div><label class="time-label">'+d.toLocaleTimeString()+'</label><span class="history-value">'+item.Amount+'</span><span class="unit-type"></span></div>';
         });
 
     }
@@ -107,15 +111,52 @@ function updateGUI(rowSets){
     {
         SugarReadingsAppData.todayAvg =0;
     }
-
-
-    $("#todayTotal").html(SugarReadingsAppData.todayTotal);
-    $("#todayAvg").html(Math.round(SugarReadingsAppData.todayAvg * 100)/100);
-    $("#todayMin").html(SugarReadingsAppData.todayMin);
-    $("#todayMax").html(SugarReadingsAppData.todayMax);
-    $("#hba1c").html(hba1c);
-    $("#historyRows").html(historyHtml);
     updateUnitType();
+
+    $('#summary-rows').jsGrid({
+        width:"100%",
+        inserting:false,
+        editing:false,
+        sorting:true,
+        paging:false  ,
+    data:[
+             {information:"Today",Amount:SugarReadingsAppData.todayTotal,label:"readings"}
+            ,{information:"Your Low",Amount:SugarReadingsAppData.todayMin,label:diabeticHealthTracker.sugarReadings.unitTypeLabel}
+            ,{information:"Your High",Amount:SugarReadingsAppData.todayMax,label:diabeticHealthTracker.sugarReadings.unitTypeLabel}
+            ,{information:"Your Avg",Amount:diabeticHealthTracker.math.round2dp(SugarReadingsAppData.todayAvg),label:diabeticHealthTracker.sugarReadings.unitTypeLabel}
+            ,{information:"IFCC HbA1c (3mth)",Amount:hba1c,label:diabeticHealthTracker.sugarReadings.unitTypeLabelHba1c}
+        ],
+        fields:[
+            {name:"information",title:"Info", type:"text"},
+            {name:"Amount",title:"Amount", type:"number"},
+            {name:"label", title:"", type:"text"}
+            
+        ]   
+      });
+
+
+    
+
+
+    $('#history-rows').jsGrid({
+        width:"100%",
+        inserting:false,
+        editing:false,
+        sorting:true,
+        paging:false,
+        rowClass:function(item, itemIndex){
+            return getTimeBasedAlternateRowClass(item, itemIndex, 'TimeTaken', this.data);
+
+        },
+            data:history.data,
+        fields:[
+            {name:"TimeTaken",title:"Date", type:"date"},
+            {name:"TimeTaken", title:"Time", type:"time"},
+            
+            {name:"Amount",title:"Amount", type:"number"}
+        ]   
+      });
+
 
 }
 

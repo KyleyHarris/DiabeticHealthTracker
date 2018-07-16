@@ -85,28 +85,41 @@ function updateGUI(rowSets){
       if (settings.data.length==1) {
         WaterIntakeAppData.SettingsCreated = true;
         WaterIntakeAppData.VolumePerDayTarget_mls = settings.data[0].VolumePerDayTarget_mls;
-        $(".settings-section").hide();
-        $(".main-section").show();
+        eta.forms.dht.hideSettings();
 
       } else
       {
         WaterIntakeAppData.VolumePerDayTarget_mls = 8*300;
-        $(".settings-section").show();
-        $(".main-section").hide();
+        eta.forms.dht.showSettings();
       }
       $("#water-value-perday").val(WaterIntakeAppData.VolumePerDayTarget_mls);
     } 
     var history = eta.utils.RowsByName("TodaysWater", rowSets);
     var todayTotal_mls = 0;
-    var historyHtml = "";
+    var todayDateStr = eta.utils.dateFloor().toLocaleDateString();
     if(history)
     {
-
-        history.data.forEach(function(item){ 
-            todayTotal_mls+=item.Volume_mls;
-            var d = new Date(item.FinishedConsumingAt);
-            historyHtml+='<div><label class="history-time">'+d.toLocaleTimeString()+'</label><label class="history-value">'+eta.utils.sanitize(item.WaterType)+'</label><span class="history-value">'+item.Volume_mls+'mls</span></div>';
+        history.data.forEach(function(item){
+            if(todayDateStr == new Date(item.FinishedConsumingAt).toLocaleDateString())
+              todayTotal_mls+=item.Volume_mls;
         });
+        $('#history-rows').jsGrid({
+            width:"100%",
+            inserting:false,
+            editing:false,
+            sorting:true,
+            paging:false,
+            rowClass:function(item, itemIndex){
+                return getTimeBasedAlternateRowClass(item, itemIndex, 'FinishedConsumingAt', this.data);
+            },
+            data:history.data,
+            fields:[
+                {name:"FinishedConsumingAt",title:"Date", type:"date"},
+                {name:"FinishedConsumingAt", title:"Time", type:"time"},
+                {name:"WaterType",title:"Type", type:"text"},
+                {name:"Volume_mls",title:"Volume(mls)", type:"number"}
+            ]   
+          });        
 
     }
     var waterTypes =  eta.utils.RowsByName("WaterType", rowSets);
@@ -115,9 +128,7 @@ function updateGUI(rowSets){
     {
         waterTypes.data.forEach(function(item){ 
             waterTypeHtml+=
-            //'<div class="add-water">'+
             '<button id="btnAddWater-'+item._Id+'" WaterTypeId="'+item._Id+'" class="add-water-button dynamic-water-button button-width-small button button-primary button-pill button-icon-txt-large">'+eta.utils.sanitize(item.Name)+'</button>';
-            //'</div>';
         });
 
     }
@@ -127,7 +138,7 @@ function updateGUI(rowSets){
     WaterIntakeAppData.todayRemaining_mls = WaterIntakeAppData.VolumePerDayTarget_mls - todayTotal_mls;
     $("#todayTotal_mls").html(todayTotal_mls);
     $("#todayRemaining_mls").html(WaterIntakeAppData.todayRemaining_mls);
-    $("#historyRows").html(historyHtml);
+    //$("#historyRows").html(historyHtml);
     $('#extra-buttons').html(waterTypeHtml);
     $('.dynamic-water-button').click(postWaterValue);
 }

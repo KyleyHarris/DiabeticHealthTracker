@@ -11,16 +11,14 @@ $(document).ready(function() {
     eta.rootFolder = '/web/diabetichealthtracker'
   }
   
+  $('.primary-editor').focus();
   // This lets the generic login page know where to come back to
   localStorage.setItem('eta_homepage',eta.rootFolder +'/index.htm');
-
+  bindForms();
   // Any page of the app which wants to divide its page into a working section and settings 
   // page can be setup here with page switching
-  $('.settings-click').click(function(){
-    $(".main-section").hide();
-    $(".settings-section").show();
-  })
-
+  eta.forms.dht.bindSettings();
+  
   // setup a default error handler for the app to display erros in a Div section
   // id="error"
   eta.forms.onError = function(errorMsg){
@@ -49,3 +47,93 @@ $(document).ready(function() {
   );
 });
 
+function bindForms(){
+eta.forms.dht = {
+
+  bindSettings: function(){
+    $('.settings-click').click(function(){
+      this.showSettings();
+    }.bind(this));
+    
+  $('.settings-click').addClass("button button-action button-circle");
+  
+  $('.return-click').click(function(){
+    this.hideSettings();
+  }.bind(this));
+  $('.return-click').addClass("button button-action button-circle");
+  
+  }
+  ,showSettings:function(){
+    $(".settings-section").show();
+    $(".main-section").hide();
+  }
+  ,hideSettings:function(){
+    $(".settings-section").hide();
+    $(".main-section").show();
+
+  }
+  ,toggleSettings(value){
+    if (value) 
+      this.showSettings(); 
+    else 
+      this.hideSettings();
+  }
+
+}
+}
+
+if (!(window.jsGrid === undefined) ){
+
+var dhtDateField = function(config) {
+  jsGrid.Field.call(this, config);
+};
+
+dhtDateField.prototype = new jsGrid.Field({
+
+  css: "date-field",            // redefine general property 'css'
+  align: "right",              // redefine general property 'align'
+
+  sorter: function(date1, date2) {
+      return new Date(date1) - new Date(date2);
+  },
+
+  itemTemplate: function(value) {
+      return new Date(value).toLocaleDateString();
+  }
+});
+
+
+var dhtTimeField = function(config) {
+  jsGrid.Field.call(this, config);
+};
+
+dhtTimeField.prototype = new jsGrid.Field({
+
+  css: "time-field",            // redefine general property 'css'
+  align: "right",              // redefine general property 'align'
+
+  sorter: function(date1, date2) {
+      return new Date(date1) - new Date(date2);
+  },
+
+  itemTemplate: function(value) {
+      return new Date(value).toLocaleTimeString();
+  }
+
+  
+});
+
+jsGrid.fields.time = dhtTimeField;
+jsGrid.fields.date = dhtDateField;
+}
+
+
+
+function getTimeBasedAlternateRowClass(item, itemIndex, dateField, data){
+  var c = "";
+  if(itemIndex %2 == 1) c =  "jsgrid-dht-alt-row ";
+  if(itemIndex >0 && new Date(item[dateField]).toDateString() != new Date(data[itemIndex-1][dateField]).toDateString() )
+    return c+ "jsgrid-row-break"
+    else
+    return c;
+}

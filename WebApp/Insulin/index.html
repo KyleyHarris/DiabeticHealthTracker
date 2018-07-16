@@ -11,9 +11,13 @@
 
     <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
     <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>        
+
+    <script type="text/javascript" src="https://entertheapi.azurewebsites.net/js/jsgrid.min.js"></script>    
+    <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid.min.css" />
+    <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid-theme.min.css" />
+
     <script src="../js/healthjournal.js"></script>
     <script src="../js/healthjournalUI.js"></script>
-
     <script src="./js/insulinrecording.js"></script>
     <script src="./js/insulinrecordingUI.js"></script>
     <link rel="stylesheet" href="../css/site.css" />
@@ -31,26 +35,37 @@
         </div>
     </div>
 
-    <div id="error"></div><div class="main-section">
-        
-        <h2>Insulin Dosing</h2>
+    <div id="error"></div>
+    <div class="main-section">
+        <div class="main-title">
+            <h2>Insulin Doses<button class="settings-click"><i class="fas fa-cog"></i></button></h2>
+            </div>
         <div class="message hidden"></div>
         <div id="input-form" class="page-section">
             <div class="input-form-content center" id="input-form-content"></div>
         </div>
-        <div id="input-form" class="page-section">
-                <div class="input-form-content">
-                    <div class="add-insulin-dose ">
-                        <h2>Settings</h2>
-                        <input type="text" id="new-insulin-type" class="name-edit" size=20 maxlength="25" /><button id="btnAdd" class="button button-action button-pill">Add Type</button>
-                    </div>
-                </div>
-            </div>
-            <div id="history" class="page-section">
-            <h2>Recent History</h2>
-            <div id="historyRows"></div>
-        </div>
+  
     </div>
+    <div id="settings" class="settings-section">
+        <h2>Insulin Dose Settings<button class="return-click"><i class="fas fa-angle-double-left"></i></i></button></h2>
+        <div class="option" >
+            <label>If you take one or more types of insulin each day, then you need to add the different types here.<br>Examples "Novorapid", "Protophane"<br> which we will then use to allow you to add your daily dosages as you take them.</label>
+            <input type="text" id="new-insulin-type" class="name-edit" size=20 maxlength="25" />
+            <button id="btnAdd" class="button  button-highlight button-pill">Add Type</button>
+        </div>
+        
+    </div>
+    <!--
+    <div id="history" class="page-section">
+        <h2>Recent History</h2>
+        <div id="historyRows"></div>
+    </div>
+    -->
+    <div id="history-grid" class="page-section">
+        <h2>Recent History</h2>
+        <div id="history-rows"></div>
+    </div>
+
 
 
 </body>
