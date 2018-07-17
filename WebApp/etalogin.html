@@ -100,6 +100,15 @@
     $('.app-header').css('background-image', 'url(' + localStorage.getItem("eta_headerimgurl") + ')');
     $('.app-header').css('background-color', localStorage.getItem("eta_headercolor"));
     debug.log("Set after signin page to " + localStorage.getItem("eta_returnpage"));
+ 
+    function initDHTGoogleAuth(){
+    // when publishing outside ETA, we need a proper client id for the domain.
+    var clientId = null;
+    if (window.location.hostname.toLowerCase() != 'entertheapi.azurewebsites.net')
+      clientId = "812872826457-qh6dibaegvrvpm3hs316i0hb0kpjr18g.apps.googleusercontent.com";
+
+    initGoogleAuth(clientId);
+    }    
     
     eta.user.onBeforeLogin = function () {
         var radioValue = $("input[name='time']:checked").val();
