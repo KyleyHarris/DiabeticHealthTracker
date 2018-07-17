@@ -88,7 +88,7 @@ $(document).ready(function() {
           d.toLocaleDateString() +
           '</label><label class="time-label">' +
           d.toLocaleTimeString() +
-          '</label></div><img id="img_'+id.toString()+'" class="img-320240" src="'+eta.comms.settings.apidomain+item.Picture+'?token='+encodeURIComponent(eta.user.sessionToken)+'" alt="" />';
+          '</label></div><img id="img_'+id.toString()+'" class="img-320240" src="'+eta.comms.settings.apidomain+item.Picture+'?token='+encodeURIComponent(eta.user.readToken)+'" alt="" />';
       });
     }
   
