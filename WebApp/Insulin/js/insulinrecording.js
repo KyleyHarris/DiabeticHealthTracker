@@ -3,7 +3,7 @@ data:{
     getTodayData: function(callback){
         var qry = diabeticHealthTracker.newQuery();
         this.getTodayView(qry);
-        qry.Run(callback,
+        return qry.run(callback,
             diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
     }
     ,addInsulinType:function(aName){
@@ -11,7 +11,7 @@ data:{
         qry.insert("InsulinType", ["Name"],
         {"Name":aName});
         this.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
+        return qry.run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
                 diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
     }
     ,addRecording:function(amount, insulinTypeId){
@@ -20,7 +20,7 @@ data:{
         qry.insert("InsulinRecording", ["Amount", "InsulinTypeId"],
         {"Amount":amount,InsulinTypeId:insulinTypeId});
         this.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
+        return qry.run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
                 diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
     }
     ,onRecordingsHistoryReceived:null // assign this callback function when the server returns data to display

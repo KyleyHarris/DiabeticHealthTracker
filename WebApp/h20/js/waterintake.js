@@ -3,7 +3,7 @@ data:{
     getTodayData: function(callback){
         var qry = diabeticHealthTracker.newQuery();
         this.getTodayView(qry);
-        qry.Run(callback,
+        return qry.run(callback,
             diabeticHealthTracker.WaterIntake.data.onMessageFailed);
     }
     ,addFluid:function(amountInMilliLitres, timeOfDayFinished, waterTypeId){
@@ -21,7 +21,7 @@ data:{
         qry.insert("WaterBasedFluid", fields,
         params);
         this.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
+        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
                 diabeticHealthTracker.WaterIntake.data.onMessageFailed);
     }
     ,addWaterType:function(aName){
@@ -29,7 +29,7 @@ data:{
         qry.insert("WaterFluidType", ["Name"],
         {"Name":aName});
         this.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
+        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
             diabeticHealthTracker.WaterIntake.data.onMessageFailed);
     }
     ,onFluidHistoryReceived:null // assign this callback function when the server returns data to display
@@ -65,7 +65,7 @@ data:{
         qry.update("WaterBasedFluidSettings", ["VolumePerDayTarget_mls"],"",
         {"VolumePerDayTarget_mls":amountInMilliLitres});
         diabeticHealthTracker.WaterIntake.data.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
+        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
                 diabeticHealthTracker.WaterIntake.data.onMessageFailed);
     }
     ,addDailyLimit:function(amountInMilliLitres){
@@ -74,7 +74,7 @@ data:{
         qry.insert("WaterBasedFluidSettings", ["VolumePerDayTarget_mls"],
         {"VolumePerDayTarget_mls":amountInMilliLitres});
         diabeticHealthTracker.WaterIntake.data.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
+        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
                 diabeticHealthTracker.WaterIntake.data.onMessageFailed);
     }    
 }

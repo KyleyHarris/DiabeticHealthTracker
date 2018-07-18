@@ -4,7 +4,7 @@ data:{
     getTodayData: function(callback){
         var qry = diabeticHealthTracker.newQuery();
         this.getTodayView(qry);
-        qry.Run(callback,
+        return qry.run(callback,
             diabeticHealthTracker.sugarReadings.data.onMessageFailed);
     }
     ,addReading:function(amount){
@@ -13,7 +13,7 @@ data:{
         qry.insert("SugarReading", ["Amount"],
         {"Amount":amount});
         this.getTodayView(qry);
-        qry.Run(diabeticHealthTracker.sugarReadings.data.onPageDataCallback,
+        return qry.run(diabeticHealthTracker.sugarReadings.data.onPageDataCallback,
                 diabeticHealthTracker.sugarReadings.data.onMessageFailed);
     }
     ,onPageDataCallback:null // assign this callback function when the server returns data to display

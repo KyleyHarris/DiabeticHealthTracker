@@ -138,11 +138,25 @@ function getTimeBasedAlternateRowClass(item, itemIndex, dateField, data){
     return c;
 }
 
+
+// use this to insert a progress meter style spinner
 function insertProgressIndicatorTemplate(jItem, classType, title, message){
   if(!title) title="Sending...";
   if(!message) message = "";
   if(!classType) classType = "goodMsg";
-  jItem.append('<div id="progress-spinner" class="progress '+classType+'">'+
+  jItem.append('<div class="progress-spinner progress '+classType+'">'+
 '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i><span class="progress-title">'+title+'</span>'+
 '<span class="progress-message">'+message+'</span></div>');
 };
+
+function removeSpinner(jItem){
+  jItem.find('.progress-spinner').remove();
+}
+
+function insertTimedIndicatorMessage(jItem, classType, iconClass, title, message){
+if(!iconClass) iconClass = "far fa-check-circle";
+  jItem.append('<div class="indicator progress '+classType+'">'+
+  '<i class="'+iconClass+'" style="font-size:24px"></i><span class="progress-title">'+title+'</span>'+
+  '<span class="progress-message">'+message+'</span></div>');
+  window.setTimeout(()=>{jItem.find('.indicator').remove();},3000);
+}

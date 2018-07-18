@@ -64,24 +64,25 @@
         <div class="message hidden"></div>
         <div id="input-form" class="page-section center">
             <div>
-                <button class="finger-button photo-button button button-action">
+                <button class="finger-button photo-button button button-action" disabled>
                     <i class="fas fa-camera-retro"></i>
                 </button>
                 <input class="hidden" type="file" id="food-capture" accept="image/*" capture="environment">
-                <button class="finger-button gallery-button button button-action">
+                <button class="finger-button gallery-button button button-action" disabled>
                         <i class="far fa-images"></i>
                     </button>
                     <input class="hidden" type="file" id="food-gallery-capture" accept="image/*">
                 </div>
-            Click a Pic Now
+                <div id="upload">
+                        <button type="button" class=" button button-primary button-pill button-icon-txt-large " id="btnGo"><i class="fas fa-share-square"></i> Add your food</button>
+                 </div>
+                 <div id="msg"></div>
+      
             <div class="inline">
-                <img id="imgView" class="img-320240" src="./images/food.png" alt="" />
                 <div id="imgResult"> </div>
+                <img id="imgView" class="img-320240" src="./images/food.jpg" alt="" />
+                
             </div>
-            <div id="upload">
-                <button type="button" class=" button button-action button-pill button-icon-txt-large " id="btnGo">Add</button>
-            </div>
-            <div id="msg"></div>
         </div>
         <div id="history" class="page-section">
 

@@ -1,10 +1,9 @@
 diabeticHealthTracker.Food = { 
     data:{
-        GetRecentData: function(callback){
+        GetRecentData: function(){
             var qry = diabeticHealthTracker.newQuery();
             this.GetRecentView(qry);
-            qry.Run(callback,
-                diabeticHealthTracker.Food.data.onMessageFailed);
+            return qry.run();
         }
         ,addFood:function(url){
             // Send a message to the server that we just had a drink.
@@ -12,7 +11,7 @@ diabeticHealthTracker.Food = {
             qry.insert("Food", ["Picture"],
             {"Picture":url});
             this.GetRecentView(qry);
-            qry.Run(diabeticHealthTracker.Food.data.onPageDataCallback,
+            return qry.run(diabeticHealthTracker.Food.data.onPageDataCallback,
                     diabeticHealthTracker.Food.data.onMessageFailed);
         }
         ,onPageDataCallback:null // assign this callback function when the server returns data to display

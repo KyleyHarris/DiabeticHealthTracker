@@ -15,4 +15,8 @@ var
    }
 }; 
 
-eta.user.activeProject = 'dht_';
+//this line is very important for project segregation and should be unique
+//throughout the system. use the project PublicName is reccomended
+//this is used to prefix login information etc in storage and 
+//allows the site to run on a standalone system or in the enter the api eco system
+eta.user.load('dht_');

@@ -3,7 +3,7 @@ data:{
     GetRecentData: function(callback){
         var qry = diabeticHealthTracker.newQuery();
         this.GetRecentView(qry);
-        qry.Run(callback,
+        return qry.run(callback,
             diabeticHealthTracker.WeightReadings.data.onMessageFailed);
     }
     ,addReading:function(amount){
@@ -12,7 +12,7 @@ data:{
         qry.insert("WeightReading", ["Amount"],
         {"Amount":amount});
         this.GetRecentView(qry);
-        qry.Run(diabeticHealthTracker.WeightReadings.data.onPageDataCallback,
+        return qry.run(diabeticHealthTracker.WeightReadings.data.onPageDataCallback,
                 diabeticHealthTracker.WeightReadings.data.onMessageFailed);
     }
     ,onPageDataCallback:null // assign this callback function when the server returns data to display

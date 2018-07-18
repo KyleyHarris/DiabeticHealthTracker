@@ -1,9 +1,7 @@
 var cameraButtonClicked = false;
 $(document).ready(function() {
     $('#upload').hide();
-    diabeticHealthTracker.Food.data.onPageDataCallback = onFoodReadingPosted;
-    diabeticHealthTracker.Food.data.onMesssageFailed = onFoodReadingPosted;
-
+  
     // Trigger the Camera button to initiate a photo select direct from camera
     // by binding to the file input
     $(".photo-button").on("click", function() {
@@ -12,20 +10,22 @@ $(document).ready(function() {
         $('#upload').hide();
         $("#food-capture").trigger("click");
     });
-   
+  
+    // Trigger Gallery selection
     $(".gallery-button").on("click", function() {
       cameraButtonClicked = true;
         $('.alert').hide();
         $('#upload').hide();
         $("#food-gallery-capture").trigger("click");
     });
-   
+
     // Link the File Picker to the display image.
     eta.forms.bindImgToFilePicker(
       $('#food-capture'),
       $('#imgView') ,
        800,450,0.85);
-    
+
+    // link gallery picker to display image
     eta.forms.bindImgToFilePicker(
         $('#food-gallery-capture'),
         $('#imgView') ,
@@ -33,22 +33,21 @@ $(document).ready(function() {
              
     // when the display image changes, prompt the user to upload the image if its good.
     document.getElementById("imgView").onload =function(){
-      if(cameraButtonClicked)
-      {
-        eta.forms.alertSuccess('msg', 'Great, if this is the right pic, click add to upload');
-        $('#upload').show();
-      }
+      // cameraButtonClicked is false the first time so that we dont show the upload button
+      // when loading the default image.
+      if(cameraButtonClicked) $('#upload').show();
+      
     };
 
     // perform the upload if everything is correct.
     $("#btnGo").click(postFoodReading);
-    $("#reading-value").val(0);
-    // will trigger an event back to the main form
-  
   
     // verify we are logged in and do a preload of data
     eta.user.CheckLoginStatus("../etalogin.html", function() {
-      diabeticHealthTracker.Food.data.GetRecentData(onInitData);
+      diabeticHealthTracker.Food.data.GetRecentData().then(result=>{
+        onInitData(result);
+        $('.finger-button').enable();
+      });
     });
   
   });
@@ -61,8 +60,10 @@ $(document).ready(function() {
   function postFoodReading(item) {
     if (!eta.user.valid()) return;
 
+    var imgResult = $('#imgResult');
     // no double clicks for now
     $('#upload').hide();
+    insertProgressIndicatorTemplate(imgResult,"goodMsg","Sending Now...");
 
     // create a filename unique enough for this user.
     var dateNumStr= new Date().valueOf().toString();
@@ -70,21 +71,31 @@ $(document).ready(function() {
     // file path generated based on developer account and project.
     var filePath= 'storage/a-10000/p-4/private/u-'+eta.user.Account.AccountNumber.toString()+'/food/'+foodFileName+'.jpg';
     
-    eta.comms.putUserImg(filePath, $('#imgView')[0].src, true, function(statusCode){
-      if(statusCode==200){
-        eta.forms.alertSuccess("msg","Image Uploaded, now saving Entry");
-        diabeticHealthTracker.Food.data.addFood(filePath);
-      } else
+    eta.comms.putUserImg(filePath, $('#imgView')[0].src, true)
+      .then(function(){
+        return diabeticHealthTracker.Food.data.addFood(filePath);
+      }).then((queryResult)=>{ 
+          removeSpinner(imgResult);
+          insertTimedIndicatorMessage(imgResult, "goodMsg",undefined, "Success", "Great, we have added your food entry");
+          resetImg();
+          
+          onInitData(queryResult);
+        })
+      .catch(function(error, message)
       {
         // allow retry just incase real comms error
         $('#upload').show();
-        eta.forms.alertError("msg","Could Not Save File. Status Code:" + statusCode.toString())
-      }
-    });
+        removeSpinner(imgResult);
+        insertTimedIndicatorMessage(imgResult, "badMsg","fas fa-exclamation-circle", "Error", message);
+      });
+    
 
 
   }
-  
+  function resetImg(){
+    cameraButtonClicked = false;
+    document.getElementById("imgView").src = "./images/food.jpg";
+  }
   function updateGUI(rowSets) {
 
     var history = eta.utils.RowsByName("RecentReadings", rowSets);
@@ -96,11 +107,11 @@ $(document).ready(function() {
         id++;
         var d = new Date(item.TimeTaken);
         historyHtml +=
-          '<div><label class="date-label">' +
+          '<div class="time-header"><label class="date-label">' +
           d.toLocaleDateString() +
           '</label><label class="time-label">' +
           d.toLocaleTimeString() +
-          '</label></div><img id="img_'+id.toString()+'" class="img-320240" src="'+eta.comms.settings.apidomain+item.Picture+'?token='+encodeURIComponent(eta.user.readToken)+'" alt="" />';
+          '</label></div><div class="img-preview"><img id="img_'+id.toString()+'" class="img-320240" src="'+eta.comms.settings.apidomain+item.Picture+'?token='+encodeURIComponent(eta.user.readToken)+'" alt="" /></div>';
       });
     }
   
@@ -115,7 +126,7 @@ $(document).ready(function() {
     }
   
     if (queryResult.Success) {
-      updateGUI(queryResult.RowSets);
+      updateGUI(queryResult.Data.Results);
     } else eta.forms.displayError(queryResult.Message);
   }
 

@@ -74,7 +74,7 @@ function onInitData(queryResult) {
   }
 
   if (queryResult.Success) {
-    updateGUI(queryResult.RowSets);
+    updateGUI(queryResult.Data.Results);
   } else displayalert("ERROR: " + queryResult.Message);
 }
 
