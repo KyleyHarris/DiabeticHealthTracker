@@ -6,7 +6,7 @@ $(document).ready(function() {
   $("#reading-value").val(0);
   // will trigger an event back to the main form
 
-  eta.user.CheckLoginStatus("/etalogin.html", function() {
+  eta.user.CheckLoginStatus("../etalogin.html", function() {
     diabeticHealthTracker.InsulinRecordings.data.getTodayData(onInitData);
   });
 });

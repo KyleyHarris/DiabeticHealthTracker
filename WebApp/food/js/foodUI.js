@@ -13,12 +13,24 @@ $(document).ready(function() {
         $("#food-capture").trigger("click");
     });
    
+    $(".gallery-button").on("click", function() {
+      cameraButtonClicked = true;
+        $('.alert').hide();
+        $('#upload').hide();
+        $("#food-gallery-capture").trigger("click");
+    });
+   
     // Link the File Picker to the display image.
     eta.forms.bindImgToFilePicker(
       $('#food-capture'),
       $('#imgView') ,
        800,450,0.85);
     
+    eta.forms.bindImgToFilePicker(
+        $('#food-gallery-capture'),
+        $('#imgView') ,
+         800,450,0.85);
+             
     // when the display image changes, prompt the user to upload the image if its good.
     document.getElementById("imgView").onload =function(){
       if(cameraButtonClicked)
@@ -35,7 +47,7 @@ $(document).ready(function() {
   
   
     // verify we are logged in and do a preload of data
-    eta.user.CheckLoginStatus("/etalogin.html", function() {
+    eta.user.CheckLoginStatus("../etalogin.html", function() {
       diabeticHealthTracker.Food.data.GetRecentData(onInitData);
     });
   

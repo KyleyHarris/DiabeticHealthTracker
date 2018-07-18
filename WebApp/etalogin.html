@@ -13,7 +13,7 @@
     <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
     <script src="https://entertheapi.azurewebsites.net/js/buttons.js"></script>
 
-    <script src="/js/healthjournal.js"></script>
+    <script src="./js/healthjournal.js"></script>
 
     <meta charset="utf-8" />
     <title>Diabetic Health Tracker Login</title>
@@ -97,9 +97,9 @@
 
 <script>
  //   debug.logSpace = $("#log");
-    $('.app-header').css('background-image', 'url(' + localStorage.getItem("eta_headerimgurl") + ')');
-    $('.app-header').css('background-color', localStorage.getItem("eta_headercolor"));
-    debug.log("Set after signin page to " + localStorage.getItem("eta_returnpage"));
+    $('.app-header').css('background-image', 'url(' + sessionStorage.getItem("eta_headerimgurl") + ')');
+    $('.app-header').css('background-color', sessionStorage.getItem("eta_headercolor"));
+    debug.log("Set after signin page to " + sessionStorage.getItem("eta_returnpage"));
  
     function initDHTGoogleAuth(){
     // when publishing outside ETA, we need a proper client id for the domain.

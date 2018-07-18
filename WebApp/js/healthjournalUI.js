@@ -13,7 +13,12 @@ $(document).ready(function() {
   
   $('.primary-editor').focus();
   // This lets the generic login page know where to come back to
-  localStorage.setItem('eta_homepage',eta.rootFolder +'/index.htm');
+  sessionStorage.setItem('eta_homepage',eta.rootFolder +'/index.htm');
+  sessionStorage.setItem("eta_headerimgurl",
+    eta.rootFolder+"/images/diabeticHealthTracker.png"
+  );
+  sessionStorage.setItem("eta_headercolor", "antiquewhite");
+
   bindForms();
   // Any page of the app which wants to divide its page into a working section and settings 
   // page can be setup here with page switching
@@ -30,20 +35,15 @@ $(document).ready(function() {
   
   // setup the banner image which will be used by the generic login page 
   // and each page of the web app and micro apps.
-  localStorage.setItem(
-    "eta_headerimgurl",
-    eta.rootFolder+"/images/diabeticHealthTracker.png"
-  );
-  localStorage.setItem("eta_headercolor", "antiquewhite");
-
+  
   // bind the image and colors.
   $(".app-header").css(
     "background-image",
-    "url(" + localStorage.getItem("eta_headerimgurl") + ")"
+    "url(" + sessionStorage.getItem("eta_headerimgurl") + ")"
   );
   $(".app-header").css(
     "background-color",
-    localStorage.getItem("eta_headercolor")
+    sessionStorage.getItem("eta_headercolor")
   );
 });
 
@@ -137,3 +137,12 @@ function getTimeBasedAlternateRowClass(item, itemIndex, dateField, data){
     else
     return c;
 }
+
+function insertProgressIndicatorTemplate(jItem, classType, title, message){
+  if(!title) title="Sending...";
+  if(!message) message = "";
+  if(!classType) classType = "goodMsg";
+  jItem.append('<div id="progress-spinner" class="progress '+classType+'">'+
+'<i class="fa fa-spinner fa-spin" style="font-size:24px"></i><span class="progress-title">'+title+'</span>'+
+'<span class="progress-message">'+message+'</span></div>');
+};

@@ -9,7 +9,7 @@ $(document).ready(function() {
   $("#btnAdd").click(postWaterType);
 
   
-  eta.user.CheckLoginStatus("/etalogin.html",function(){
+  eta.user.CheckLoginStatus("../etalogin.html",function(){
     diabeticHealthTracker.WaterIntake.data.getTodayData(onInitData);
   });
 

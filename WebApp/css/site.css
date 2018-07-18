@@ -297,3 +297,22 @@ vertical-align: middle;}
     .jsgrid-dht-alt-row .jsgrid-cell{
         background: lemonchiffon;
     }
+
+
+    .goodMsg {color:green;}
+    .badMsg{color:red;}
+    .progress{
+    border-radius:10px;
+    border:2px solid green;
+    margin:6px;
+    padding:10px;
+    font-variant:small-caps;
+    font-size:larger;
+    }
+    .progress .fa-spin{
+    margin-right:10px;
+    }
+    .progress .progress-title{
+        margin-right:12px;
+    }
+   

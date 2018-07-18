@@ -15,3 +15,4 @@ var
    }
 }; 
 
+eta.user.activeProject = 'dht_';
