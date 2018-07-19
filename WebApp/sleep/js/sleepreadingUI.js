@@ -1,22 +1,21 @@
 $(document).ready(function() {
-  diabeticHealthTracker.SleepReadings.data.onPageDataCallback = onSleepReadingPosted;
-  diabeticHealthTracker.SleepReadings.data.onMesssageFailed = onSleepReadingPosted;
+  
+  preparePageForLoad();
 
   $("#btnGo").click(postSleepReading);
   $("#reading-value").val(0);
   // will trigger an event back to the main form
-
-  
   eta.user.CheckLoginStatus("../etalogin.html", function() {
-    diabeticHealthTracker.SleepReadings.data.GetRecentData(onInitData);
+    diabeticHealthTracker.SleepReadings.data.GetRecentData()
+    .then(result=>
+      {
+        updateGUI(result.Data.Results);
+        pageLoadCompleted();
+      }).catch(sendingError);
   });
 });
-function resetDataAndGUI() {
-  SleepReadingsAppData = {};
-  $("#historyRows").html("");
-}
 
-function stringToFloat(v) {
+function diabeticHealthTracker.convert.stringToFloat(v) {
   var value = parseFloat(v);
   if (isNaN(value)) {
     return 0;
@@ -25,9 +24,14 @@ function stringToFloat(v) {
 }
 function postSleepReading(item) {
   if (!eta.user.valid()) return;
-  var currentValue = stringToFloat($("#reading-value").val());
+  var currentValue = diabeticHealthTracker.convert.stringToFloat($("#reading-value").val());
   if (currentValue != 0) {
-    diabeticHealthTracker.SleepReadings.data.addReading(currentValue);
+    diabeticHealthTracker.SleepReadings.data.addReading(currentValue)
+    .then(result=>
+      {
+        updateGUI(result.Data.Results);
+        sendingComplete("Your sleep of "+currentValue.toString()+" hours is recorded");
+      }).catch(sendingError);
   }
 }
 
@@ -39,7 +43,7 @@ function clearSleepValue() {
 
 function updateGUI(rowSets) {
   SleepReadingsAppData.SettingsCreated = false;
-
+  clearSleepValue();
   var history = eta.utils.RowsByName("RecentReadings", rowSets);
   var historyHtml = "";
   if (history) {
@@ -67,38 +71,5 @@ function updateGUI(rowSets) {
   $("#historyRows").html(historyHtml);
 }
 
-function onInitData(queryResult) {
-  if (!eta.user.valid()) {
-    resetDataAndGUI();
-    return;
-  }
-
-  if (queryResult.Success) {
-    updateGUI(queryResult.Data.Results);
-  } else displayalert("ERROR: " + queryResult.Message);
-}
-
-function displayalert(text) {
-  var msgbox = $(".message");
-  msgbox.html(text);
-  msgbox.removeClass("hidden");
-  setTimeout(function() {
-    msgbox.addClass("hidden");
-    msgbox.html("");
-  }, 10000);
-}
-
-function onSleepReadingPosted(queryResult) {
-  if (!eta.user.valid()) {
-    resetDataAndGUI();
-    return;
-  }
-  if (queryResult.Success) {
-    onInitData(queryResult);
-    displayalert("You're reading has been logged ");
-  } else displayalert("ERROR: " + queryResult.Message);
-}
-
-// for local debugging
 
 //ETACommsSettings.apidomain = "http://localhost:60775/";

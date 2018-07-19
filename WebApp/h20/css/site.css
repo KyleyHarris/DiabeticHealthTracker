@@ -1,11 +1,15 @@
-
+.add-water-button{
+  margin:0 6px !important;
+}
 .water-buttons {
-padding:1rem;
+padding-left:10px;
+padding-right:10px;
 line-height:3rem}
 
 .water-button{
     width:30%;
     font-weight: bold;
+    padding:0 15px !important;
 }
 
 

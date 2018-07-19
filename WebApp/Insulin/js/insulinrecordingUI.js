@@ -1,22 +1,27 @@
 $(document).ready(function() {
-  diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived = onInsulinRecordingPosted;
-  diabeticHealthTracker.InsulinRecordings.data.onMessageFailed = onInsulinRecordingPosted;
+  // setup the page state to show everyting is not ready
+  preparePageForLoad();
 
   $("#btnAdd").click(postInsulinType);
   $("#reading-value").val(0);
   // will trigger an event back to the main form
 
   eta.user.CheckLoginStatus("../etalogin.html", function() {
-    diabeticHealthTracker.InsulinRecordings.data.getTodayData(onInitData);
+    diabeticHealthTracker.InsulinRecordings.data.getTodayData()
+    .then(result=>{
+      updateGUI(result.Data.Results);
+      pageLoadCompleted();
+    }).catch(sendingError);
   });
 });
+
 function resetDataAndGUI() {
   InsulinRecordingsAppData = {};
   $("#historyRows").html("");
   $("#input-form-content").html("");
 }
 
-function stringToFloat(v) {
+function diabeticHealthTracker.convert.stringToFloat(v) {
   var value = parseFloat(v);
   if (isNaN(value)) {
     return 0;
@@ -25,25 +30,37 @@ function stringToFloat(v) {
 }
 
 function postInsulinType() {
-  if (!eta.user.valid()) return;
   var currentValue = $("#new-insulin-type").val();
   $("#new-insulin-type").val("");
   if (currentValue != "") {
-    diabeticHealthTracker.InsulinRecordings.data.addInsulinType(currentValue);
+    sendingNow();
+    diabeticHealthTracker.InsulinRecordings.data.addInsulinType(currentValue)
+    .then(result=>
+      {
+        sendingComplete("New insulin type added");
+        updateGUI(result.Data.Results);
+      }).catch(sendingError);
   }
 }
 
 function postInsulinRecording(item) {
-  if (!eta.user.valid()) return;
+
+  // get the insulin type for the measurement
   var insulinTypeId = $(item.currentTarget).attr("InsulinTypeId");
+  var insulinName = $(item.currentTarget).text();
   var edit = $("#insulin-dose");
   var currentValue = edit.val();
 
   if (currentValue != 0) {
+    sendingNow();
     diabeticHealthTracker.InsulinRecordings.data.addRecording(
       currentValue,
       insulinTypeId
-    );
+    ).then(result=>
+        {
+          updateGUI(result.Data.Results);
+          sendingComplete("We've recorded your dose "+currentValue.toString()+" units of "+insulinName);
+        }).catch(sendingError);
   }
 }
 
@@ -82,6 +99,7 @@ function updateGUI(rowSets) {
       });
   }
 
+  // show the settings page  by default if we have no data
   eta.forms.dht.toggleSettings(insulinTypes.data.length == 0);
 
   insulinTypeHtml =
@@ -100,42 +118,11 @@ function updateGUI(rowSets) {
       "</div>";
   });
 
- // $("#historyRows").html(historyHtml);
+ 
   $("#input-form-content").html(insulinTypeHtml);
+  // bind the click events 
   $(".insulin-dose-button").click(postInsulinRecording);
 }
 
-function displayalert(text) {
-  var msgbox = $(".message");
-  msgbox.html(text);
-  msgbox.removeClass("hidden");
-  setTimeout(function() {
-    msgbox.addClass("hidden");
-    msgbox.html("");
-  }, 10000);
-}
-function onInitData(queryResult) {
-  if (!eta.user.valid()) {
-    resetDataAndGUI();
-    return;
-  }
-
-  if (queryResult.Success) {
-    updateGUI(queryResult.Data.Results);
-  } else displayalert("ERROR: " + queryResult.Message);
-}
-
-function onInsulinRecordingPosted(queryResult) {
-  if (!eta.user.valid()) {
-    resetDataAndGUI();
-    return;
-  }
-  if (queryResult.Success) {
-    onInitData(queryResult);
-    displayalert("You're recording has been logged ");
-  } else displayalert("ERROR: " + queryResult.Message);
-}
-
-// for local debugging
 
 //ETACommsSettings.apidomain = "http://localhost:60775/";

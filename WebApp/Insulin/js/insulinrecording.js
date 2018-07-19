@@ -1,18 +1,16 @@
 diabeticHealthTracker.InsulinRecordings = { // add water intake to the diabeticHealthTracker Singleton
 data:{
-    getTodayData: function(callback){
+    getTodayData: function(){
         var qry = diabeticHealthTracker.newQuery();
         this.getTodayView(qry);
-        return qry.run(callback,
-            diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
+        return qry.run();
     }
     ,addInsulinType:function(aName){
         var qry = diabeticHealthTracker.newQuery();
         qry.insert("InsulinType", ["Name"],
         {"Name":aName});
         this.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
-                diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
+        return qry.run();
     }
     ,addRecording:function(amount, insulinTypeId){
         // Send a message to the server that we just had a drink.
@@ -20,11 +18,8 @@ data:{
         qry.insert("InsulinRecording", ["Amount", "InsulinTypeId"],
         {"Amount":amount,InsulinTypeId:insulinTypeId});
         this.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.InsulinRecordings.data.onRecordingsHistoryReceived,
-                diabeticHealthTracker.InsulinRecordings.data.onMessageFailed);
+        return qry.run();
     }
-    ,onRecordingsHistoryReceived:null // assign this callback function when the server returns data to display
-    ,onMessageFailed:null // assign this callback function when the server returns data to display
     ,getTodayView:function(aQuery){
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
         aQuery.select("TodaysRecordings",

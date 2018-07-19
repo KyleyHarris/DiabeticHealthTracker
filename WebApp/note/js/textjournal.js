@@ -1,10 +1,9 @@
 diabeticHealthTracker.TextJournal = { 
 data:{
-    GetRecentData: function(callback){
+    GetRecentData: function(){
         var qry = diabeticHealthTracker.newQuery();
         this.GetRecentView(qry);
-        return qry.run(callback,
-            diabeticHealthTracker.TextJournal.data.onMessageFailed);
+        return qry.run();
     }
     ,addNote:function(details){
         // Send a message to the server that we just had a drink.
@@ -12,8 +11,7 @@ data:{
         qry.insert("Note", ["Details"],
         {"Details":details});
         this.GetRecentView(qry);
-        return qry.run(diabeticHealthTracker.TextJournal.data.onPageDataCallback,
-                diabeticHealthTracker.TextJournal.data.onMessageFailed);
+        return qry.run();
     }
     ,onPageDataCallback:null // assign this callback function when the server returns data to display
     ,onMessageFailed:null // assign this callback function when the server returns data to display

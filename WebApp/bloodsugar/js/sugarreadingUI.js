@@ -1,16 +1,17 @@
 $(document).ready(function() {
-  
-  diabeticHealthTracker.sugarReadings.data.onPageDataCallback = onSugarReadingPosted;
-  diabeticHealthTracker.sugarReadings.data.onMessageFailed = onMessageFailed
+  // we are putting a loading state on the app, and will take it away when the page is ready for 
+  // data input. we need to clear these later;
+  preparePageForLoad();  
+
   $("#btnGo").click(postSugarReading);
   $("#reading-value").val(0);
   // will trigger an event back to the main form
-  
-  
-  
-  
+    
   eta.user.CheckLoginStatus("../etalogin.html",function(){
-    diabeticHealthTracker.sugarReadings.data.getTodayData(onInitData);
+    diabeticHealthTracker.sugarReadings.data.getTodayData().then((result)=>{
+        updateGUI(result.Data.Results);
+        pageLoadCompleted();
+    }).catch(sendingError);
   });
 });
 
@@ -31,26 +32,24 @@ function resetDataAndGUI(){
     $("#historyRows").html("");
 }
 
-function stringToFloat(v){
+function diabeticHealthTracker.convert.stringToFloat(v){
     var value = parseFloat(v);
     if(isNaN(value)) {return 0}
     return value;
 }
 function postSugarReading(item){
   if(!eta.user.valid()) return;
-  var currentValue = stringToFloat($("#reading-value").val());
+  var currentValue = diabeticHealthTracker.convert.stringToFloat($("#reading-value").val());
   if(currentValue!=0){
-    diabeticHealthTracker.sugarReadings.data.addReading(currentValue);      
+    sendingNow();  
+    diabeticHealthTracker.sugarReadings.data.addReading(currentValue)
+    .then(result=>
+      {
+        updateGUI(result.Data.Results);
+        sendingComplete("Blood Sugar reading recorded");
+      }).catch(sendingError);      
   }
 
-}
-function onMessageFailed(queryResult){
-    $("#btnGO").enable();
-     displayalert("ERROR: "+queryResult.Message);
-    if(!eta.user.valid()) {
-        resetDataAndGUI();
-        return;
-    }
 }
 
 var SugarReadingsAppData = {};
@@ -154,50 +153,13 @@ function updateGUI(rowSets){
             {name:"TimeTaken",title:"Date", type:"date"},
             {name:"TimeTaken", title:"Time", type:"time"},
             
-            {name:"Amount",title:"Amount", type:"number"}
+            {name:"Amount",title:"Amount", type:"number",
+            itemTemplate:function(value){return diabeticHealthTracker.math.round2dp(value).toFixed(2);}}
         ]   
       });
 
 
 }
-
-function onInitData(queryResult){
-    if(!eta.user.valid()) {
-        resetDataAndGUI();
-        return;
-    }
-
-    if(queryResult.Success){
-        updateGUI(queryResult.Data.Results);
-       
-    } else
-    displayalert("ERROR: "+queryResult.Message);
-}
-
-function displayalert(text){
-    var msgbox = $('.message');
-    msgbox.html(text);
-    msgbox.removeClass("hidden");
-    setTimeout(function(){
-       msgbox.addClass("hidden");
-      msgbox.html("");
-
-    },10000);
-}
-
-function onSugarReadingPosted(queryResult){
-    if(!eta.user.valid()) {
-        resetDataAndGUI();
-        return;
-    }
-    if(queryResult.Success){
-        onInitData(queryResult);
-        displayalert("You're reading has been logged ");
-        
-    } else
-    displayalert("ERROR: "+queryResult.Message);
-}
-
 
 
 // for local debugging

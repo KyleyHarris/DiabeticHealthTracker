@@ -153,10 +153,47 @@ function removeSpinner(jItem){
   jItem.find('.progress-spinner').remove();
 }
 
-function insertTimedIndicatorMessage(jItem, classType, iconClass, title, message){
+function insertTimedIndicatorMessage(jItem, classType, iconClass, title, message, timeOut){
+  if(!timeOut) timeOut = 5000;
 if(!iconClass) iconClass = "far fa-check-circle";
   jItem.append('<div class="indicator progress '+classType+'">'+
   '<i class="'+iconClass+'" style="font-size:24px"></i><span class="progress-title">'+title+'</span>'+
   '<span class="progress-message">'+message+'</span></div>');
-  window.setTimeout(()=>{jItem.find('.indicator').remove();},3000);
+  window.setTimeout(()=>{jItem.find('.indicator').remove();},timeOut);
+}
+
+function insertLoadingSpinner(){
+  var iconClass = "fa fa-spinner";
+  $(document.body).append('<div class="indicator-loading">'+
+  '<i class="'+iconClass+' fa-spin" style="font-size:24px"></i><span class="progress-title">Loading</span>'+
+  '</div>');
+} 
+
+function preparePageForLoad(){
+  insertLoadingSpinner();
+  $('.button').disable();
+}
+
+function pageLoadCompleted(){
+  $('.button').enable();
+  $('.indicator-loading').remove();
+}
+
+function sendingNow(){
+  var jItem = $('.msg-area');  
+  $('.button').disable();
+  insertProgressIndicatorTemplate(jItem,"goodMsg","Sending Now...");
+}
+function sendingComplete(message){
+  var msgArea = $('.msg-area');
+  $('.button').enable();
+  removeSpinner(msgArea);
+  insertTimedIndicatorMessage(msgArea, "goodMsg",undefined, "Success", message);
+}
+
+function sendingError(status, message){
+  var jItem = $('.msg-area');
+  $('.button').enable();
+  removeSpinner(jItem);
+  insertTimedIndicatorMessage(jItem, "badMsg","fas fa-exclamation-circle", "Error", message, 10000);
 }

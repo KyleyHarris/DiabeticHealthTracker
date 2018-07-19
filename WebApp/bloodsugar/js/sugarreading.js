@@ -1,11 +1,10 @@
 diabeticHealthTracker.sugarReadings = { // add water intake to the diabeticHealthTracker Singleton
 data:{
     unitType:1, 
-    getTodayData: function(callback){
+    getTodayData: function(){
         var qry = diabeticHealthTracker.newQuery();
         this.getTodayView(qry);
-        return qry.run(callback,
-            diabeticHealthTracker.sugarReadings.data.onMessageFailed);
+        return qry.run();
     }
     ,addReading:function(amount){
         // Send a message to the server that we just had a drink.
@@ -13,11 +12,8 @@ data:{
         qry.insert("SugarReading", ["Amount"],
         {"Amount":amount});
         this.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.sugarReadings.data.onPageDataCallback,
-                diabeticHealthTracker.sugarReadings.data.onMessageFailed);
+        return qry.run();
     }
-    ,onPageDataCallback:null // assign this callback function when the server returns data to display
-    ,onMessageFailed:null // assign this callback function when the server returns data to display
     ,getTodayView:function(aQuery){
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
         aQuery.select("RecentReadings",

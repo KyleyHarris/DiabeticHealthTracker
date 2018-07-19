@@ -1,5 +1,9 @@
 var cameraButtonClicked = false;
 $(document).ready(function() {
+    // we are putting a loading state on the app, and will take it away when the page is ready for 
+    // data input. we need to clear these later;
+    preparePageForLoad();  
+
     $('#upload').hide();
   
     // Trigger the Camera button to initiate a photo select direct from camera
@@ -46,8 +50,9 @@ $(document).ready(function() {
     eta.user.CheckLoginStatus("../etalogin.html", function() {
       diabeticHealthTracker.Food.data.GetRecentData().then(result=>{
         onInitData(result);
-        $('.finger-button').enable();
-      });
+        pageLoadCompleted();
+      
+      }).catch(sendingError);
     });
   
   });
@@ -60,11 +65,11 @@ $(document).ready(function() {
   function postFoodReading(item) {
     if (!eta.user.valid()) return;
 
-    var imgResult = $('#imgResult');
+    var msgArea = $('.msg-area');
     // no double clicks for now
     $('#upload').hide();
-    insertProgressIndicatorTemplate(imgResult,"goodMsg","Sending Now...");
 
+    sendingNow();
     // create a filename unique enough for this user.
     var dateNumStr= new Date().valueOf().toString();
     var foodFileName = 'food_'+dateNumStr;
@@ -75,23 +80,21 @@ $(document).ready(function() {
       .then(function(){
         return diabeticHealthTracker.Food.data.addFood(filePath);
       }).then((queryResult)=>{ 
-          removeSpinner(imgResult);
-          insertTimedIndicatorMessage(imgResult, "goodMsg",undefined, "Success", "Great, we have added your food entry");
+          sendingComplete("Great, we have added your food entry");
           resetImg();
-          
           onInitData(queryResult);
         })
-      .catch(function(error, message)
+      .catch(function(status, message)
       {
         // allow retry just incase real comms error
         $('#upload').show();
-        removeSpinner(imgResult);
-        insertTimedIndicatorMessage(imgResult, "badMsg","fas fa-exclamation-circle", "Error", message);
+        sendingError(status, message);
       });
     
 
 
   }
+
   function resetImg(){
     cameraButtonClicked = false;
     document.getElementById("imgView").src = "./images/food.jpg";

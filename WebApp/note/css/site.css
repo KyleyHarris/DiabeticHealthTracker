@@ -15,21 +15,6 @@ line-height:3rem}
 }
 
 
-<<<<<<< 2af76e1df2cb7b0310c279a79a698a37759252ef
-
-
-=======
-.text-journal {
-    font-weight: bold;
-  padding-left: 2rem;
-}
-
-.text-header
-{
-    background-color:gainsboro;
-    font-weight: bold;
-}
->>>>>>> First Draft
 .history-label {
     width: 12rem;
 
@@ -39,3 +24,6 @@ line-height:3rem}
     
 }
 
+textarea{
+    border:1px solid black;
+}

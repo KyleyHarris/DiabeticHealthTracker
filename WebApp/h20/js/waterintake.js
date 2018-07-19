@@ -1,10 +1,9 @@
 diabeticHealthTracker.WaterIntake = { // add water intake to the diabeticHealthTracker Singleton
 data:{
-    getTodayData: function(callback){
+    getTodayData: function(){
         var qry = diabeticHealthTracker.newQuery();
         this.getTodayView(qry);
-        return qry.run(callback,
-            diabeticHealthTracker.WaterIntake.data.onMessageFailed);
+        return qry.run();
     }
     ,addFluid:function(amountInMilliLitres, timeOfDayFinished, waterTypeId){
         // Send a message to the server that we just had a drink.
@@ -21,19 +20,15 @@ data:{
         qry.insert("WaterBasedFluid", fields,
         params);
         this.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
-                diabeticHealthTracker.WaterIntake.data.onMessageFailed);
+        return qry.run();
     }
     ,addWaterType:function(aName){
         var qry = diabeticHealthTracker.newQuery();
         qry.insert("WaterFluidType", ["Name"],
         {"Name":aName});
         this.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
-            diabeticHealthTracker.WaterIntake.data.onMessageFailed);
+        return qry.run();
     }
-    ,onFluidHistoryReceived:null // assign this callback function when the server returns data to display
-    ,onMessageFailed:null // assign this callback function when the server returns data to display
     ,getTodayView:function(aQuery){
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
         aQuery.select("TodaysWater",
@@ -59,14 +54,13 @@ data:{
     }
 }
 ,Settings: {
-    UpdateDailyLimit:function(amountInMilliLitres){
+    updateDailyLimit:function(amountInMilliLitres){
         // Talk to the server and update the daily limit
         var qry = diabeticHealthTracker.newQuery();
         qry.update("WaterBasedFluidSettings", ["VolumePerDayTarget_mls"],"",
         {"VolumePerDayTarget_mls":amountInMilliLitres});
         diabeticHealthTracker.WaterIntake.data.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
-                diabeticHealthTracker.WaterIntake.data.onMessageFailed);
+        return qry.run();
     }
     ,addDailyLimit:function(amountInMilliLitres){
         // Talk to the server and update the daily limit
@@ -74,8 +68,7 @@ data:{
         qry.insert("WaterBasedFluidSettings", ["VolumePerDayTarget_mls"],
         {"VolumePerDayTarget_mls":amountInMilliLitres});
         diabeticHealthTracker.WaterIntake.data.getTodayView(qry);
-        return qry.run(diabeticHealthTracker.WaterIntake.data.onFluidHistoryReceived,
-                diabeticHealthTracker.WaterIntake.data.onMessageFailed);
+        return qry.run();
     }    
 }
 

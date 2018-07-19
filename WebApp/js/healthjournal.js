@@ -13,6 +13,14 @@ var
         return Math.round(value * 100)/100;
        }
    }
+   ,convert:{
+    stringToFloat:function(v) {
+    var value = parseFloat(v);
+    if (isNaN(value)) {
+      return 0;
+    }
+    return value;
+   }}
 }; 
 
 //this line is very important for project segregation and should be unique

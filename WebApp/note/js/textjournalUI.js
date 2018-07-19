@@ -1,26 +1,30 @@
 $(document).ready(function() {
-  diabeticHealthTracker.TextJournal.data.onPageDataCallback = onNoteReadingPosted;
-  diabeticHealthTracker.TextJournal.data.onMesssageFailed = onNoteReadingPosted;
-
+  preparePageForLoad();
   $("#btnGo").click(postNoteReading);
   clearNoteValue();
   // will trigger an event back to the main form
 
   
   eta.user.CheckLoginStatus("../etalogin.html", function() {
-    diabeticHealthTracker.TextJournal.data.GetRecentData(onInitData);
+    diabeticHealthTracker.TextJournal.data.GetRecentData()
+    .then(result=>
+        {
+          updateGUI(result.Data.Results);
+          pageLoadCompleted();
+        }).catch(sendingError);
   });
 });
-function resetDataAndGUI() {
-  TextJournalAppData = {};
-  $("#historyRows").html("");
-}
 
 function postNoteReading(item) {
-  if (!eta.user.valid()) return;
   var currentValue = $("#reading-value").val();
   if (currentValue != "") {
-    diabeticHealthTracker.TextJournal.data.addNote(currentValue);
+    sendingNow();
+    diabeticHealthTracker.TextJournal.data.addNote(currentValue)
+    .then(result=>
+       {
+         updateGUI(result.Data.Results);
+         sendingComplete('your note is saved');
+       }).catch(sendingError);
   }
 }
 
@@ -32,7 +36,7 @@ function clearNoteValue() {
 
 function updateGUI(rowSets) {
   TextJournalAppData.SettingsCreated = false;
-
+  clearNoteValue();
   var history = eta.utils.RowsByName("RecentNotes", rowSets);
   var historyHtml = "";
   if (history) {
@@ -52,37 +56,6 @@ function updateGUI(rowSets) {
   $("#historyRows").html(historyHtml);
 }
 
-function onInitData(queryResult) {
-  if (!eta.user.valid()) {
-    resetDataAndGUI();
-    return;
-  }
-
-  if (queryResult.Success) {
-    updateGUI(queryResult.Data.Results);
-  } else displayalert("ERROR: " + queryResult.Message);
-}
-
-function displayalert(text) {
-  var msgbox = $(".message");
-  msgbox.html(text);
-  msgbox.removeClass("hidden");
-  setTimeout(function() {
-    msgbox.addClass("hidden");
-    msgbox.html("");
-  }, 10000);
-}
-
-function onNoteReadingPosted(queryResult) {
-  if (!eta.user.valid()) {
-    resetDataAndGUI();
-    return;
-  }
-  if (queryResult.Success) {
-    onInitData(queryResult);
-    displayalert("You're reading has been logged ");
-  } else displayalert("ERROR: " + queryResult.Message);
-}
 
 // for local debugging
 

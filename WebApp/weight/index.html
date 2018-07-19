@@ -56,23 +56,20 @@
         </div>
     </div>
 
-    <div id="error"></div>
+    
     <div class="main-section">
-        
         <h2>Weight</h2>
-
-        <div class="message hidden"></div>
-        <div id="input-form" class="page-section">
-            <input type="number" min="0" max="40" required size="6" id="reading-value" onfocus="this.value=''" />(Kg)
+        <div id="input-form" class="center page-section">
+            Enter your current weight in <span class="unit-weight">Kgs</span><br>
+            <input type="number" min="0" max="40" required size="6" id="reading-value" onfocus="this.value=''" />
+            <br>
             <button type="button" class="button button-action button-pill" id="btnGo">Add</button>
         </div>
+        <div class="msg-area"></div>
     </div>
     <div id="history" class="history-section page-section">
             <h2>Last 3 Month History</h2>
             <div id="history-rows"></div>
      </div>
-
-
 </body>
-
 </html>
