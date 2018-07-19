@@ -17,7 +17,7 @@ $(document).ready(function() {
         updateGUI(result.Data.Results);
         pageLoadCompleted();
       })
-      .catch(sendingError);
+      .catch(loadingError);
   });
 });
 function resetDataAndGUI() {

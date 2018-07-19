@@ -21,14 +21,6 @@ function resetDataAndGUI() {
   $("#input-form-content").html("");
 }
 
-function diabeticHealthTracker.convert.stringToFloat(v) {
-  var value = parseFloat(v);
-  if (isNaN(value)) {
-    return 0;
-  }
-  return value;
-}
-
 function postInsulinType() {
   var currentValue = $("#new-insulin-type").val();
   $("#new-insulin-type").val("");

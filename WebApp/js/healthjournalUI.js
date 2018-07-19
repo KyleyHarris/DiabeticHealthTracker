@@ -191,9 +191,14 @@ function sendingComplete(message){
   insertTimedIndicatorMessage(msgArea, "goodMsg",undefined, "Success", message);
 }
 
-function sendingError(status, message){
+function sendingError(error){
   var jItem = $('.msg-area');
   $('.button').enable();
   removeSpinner(jItem);
-  insertTimedIndicatorMessage(jItem, "badMsg","fas fa-exclamation-circle", "Error", message, 10000);
+  insertTimedIndicatorMessage(jItem, "badMsg","fas fa-exclamation-circle", "Error", error.message, 10000);
+}
+
+function loadingError(error){
+  var jItem = $('.msg-area');
+  insertTimedIndicatorMessage(jItem, "badMsg","fas fa-exclamation-circle", "Error", error.message + '<br>Please Reload the page and try again', 100000);
 }

@@ -15,13 +15,6 @@ $(document).ready(function() {
   });
 });
 
-function diabeticHealthTracker.convert.stringToFloat(v) {
-  var value = parseFloat(v);
-  if (isNaN(value)) {
-    return 0;
-  }
-  return value;
-}
 function postSleepReading(item) {
   if (!eta.user.valid()) return;
   var currentValue = diabeticHealthTracker.convert.stringToFloat($("#reading-value").val());
