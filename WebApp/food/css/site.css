@@ -6,11 +6,11 @@
     margin-bottom:10px !important;
 
 }
-.img-320240 {width:100%;height:auto;  }
+.img-320240 {width:100% ;height:auto;  }
 
 #imgView {
     border:solid 5px black;
-    
+    max-width: 640px;
     padding:3px;
     background-color: aliceblue;
     
@@ -23,10 +23,11 @@
 
 .img-preview{
     border: solid 1px lightskyblue;
-    margin: 10px;
+    max-width: 640px;
+    
     padding: 6px;
     background-color: lightgray;
-    margin-top:0px;
+    margin:auto;
 }
 .time-header{
     font-weight: bold;
@@ -34,4 +35,3 @@
     background-color: aliceblue;
     margin-top:10px;
 }
-
