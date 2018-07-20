@@ -8,7 +8,10 @@ data:{
     ,addNote:function(details){
         // Send a message to the server that we just had a drink.
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("Note", ["Details"],
+        qry.insert({
+            "sql": "insert Note (Details)",
+            "token": "7lx+D70kTggLIDOaJuNphxo3CQ2Prwz5XbM4oJfoxjLik2weuR4fH7k1ONgU9P7YjtpiB4BUrasmKtv/Ebfl8PT5QS+eMK/FAkGPFUsgbtI="
+        },
         {"Details":details});
         this.GetRecentView(qry);
         return qry.run();

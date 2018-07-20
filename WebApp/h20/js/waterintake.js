@@ -7,24 +7,27 @@ data:{
     }
     ,addFluid:function(amountInMilliLitres, timeOfDayFinished, waterTypeId){
         // Send a message to the server that we just had a drink.
+        if(!waterTypeId) waterTypeId = null; // makesure not undefined
         var qry = diabeticHealthTracker.newQuery();
-        var params = {"Volume_mls":amountInMilliLitres,"FinishedConsumingAt":qry.format.sqlDateTime(timeOfDayFinished)};
-        var fields=["Volume_mls","FinishedConsumingAt","WaterTypeId"];
-        if(waterTypeId) {
-          params.WaterTypeId = waterTypeId;
-          
-        }else
-        {
-            fields = ["Volume_mls","FinishedConsumingAt"]
-        }
-        qry.insert("WaterBasedFluid", fields,
+        var params = {"Volume_mls":amountInMilliLitres,
+          "FinishedConsumingAt":qry.format.sqlDateTime(timeOfDayFinished),
+        WaterTypeId:waterTypeId};
+        
+        
+        qry.insert({
+            "sql": "insert WaterBasedFluid (Volume_mls,FinishedConsumingAt,WaterTypeId)",
+            "token": "LKsNutQ00DK75dtLbrv5TdVTXuRpGcCylVtyYk5EPGhJDPGgp59Yl7CeJLrYnHn1FDfDE9kZrgnVTn8bpCsg+gMsWteuoTlWPFEwHiro7AY="
+        },
         params);
         this.getTodayView(qry);
         return qry.run();
     }
     ,addWaterType:function(aName){
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("WaterFluidType", ["Name"],
+        qry.insert({
+            "sql": "insert WaterFluidType (Name)",
+            "token": "rHq2RPLDKjSQfEDA0Ejdzsld91wwef4J4Cri8unRb6PUwATNunNRvJmeMKUcS4E2w7Qaqiaswnu+rai09sw4R5vgHCmIa/1yAi4jLNh01Ws="
+        },
         {"Name":aName});
         this.getTodayView(qry);
         return qry.run();
@@ -57,7 +60,10 @@ data:{
     updateDailyLimit:function(amountInMilliLitres){
         // Talk to the server and update the daily limit
         var qry = diabeticHealthTracker.newQuery();
-        qry.update("WaterBasedFluidSettings", ["VolumePerDayTarget_mls"],"",
+        qry.update({
+            "sql": "update WaterBasedFluidSettings (VolumePerDayTarget_mls)",
+            "token": "GMSMHDNRvy13OampKG4hD3PoL6mgD0qsR91OHLs1YbDm2BM6PglgQ4F38F4/UOp5WVlS9srq/X1i3Lm2i26HcOwROPXWLFhGM1DwoFfBq7s="
+        },
         {"VolumePerDayTarget_mls":amountInMilliLitres});
         diabeticHealthTracker.WaterIntake.data.getTodayView(qry);
         return qry.run();
@@ -65,14 +71,19 @@ data:{
     ,addDailyLimit:function(amountInMilliLitres){
         // Talk to the server and update the daily limit
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("WaterBasedFluidSettings", ["VolumePerDayTarget_mls"],
+        qry.insert({
+            "sql": "insert WaterBasedFluidSettings (VolumePerDayTarget_mls)",
+            "token": "V4PsJd8cR+PjTn5BxXHvPENedzfiu4hqskl7arkmS/BxsktaNZn1vuscu2N2k3mvdMCtm31gXKwwoimQzXVXam3oJWjYmqDJnI9ol/wOWSU="
+        },
         {"VolumePerDayTarget_mls":amountInMilliLitres});
         diabeticHealthTracker.WaterIntake.data.getTodayView(qry);
         return qry.run();
+
+        
     }    
 }
 
 }
 
-
+eta.comms.settings.apidomain = "http://localhost:60775/";
 //

@@ -8,7 +8,11 @@ diabeticHealthTracker.Food = {
     addFood: function(url) {
       // Send a message to the server that we just had a drink.
       var qry = diabeticHealthTracker.newQuery();
-      qry.insert("Food", ["Picture"], { Picture: url });
+      qry.insert({
+        "sql": "insert Food (Picture)",
+        "token": "fBTGJwmkOqp7OJsKAScRmcTt8/nrGZ9aLN3gydksOVqyjuJUjvTYZ1+ZJkCctn2S2aKtkb1xfwfMhJ4zqC+NRgPmyAiycpe0hvH5igf8hhM="
+        }
+      , { Picture: url });
       this.GetRecentView(qry);
       return qry.run();
     },

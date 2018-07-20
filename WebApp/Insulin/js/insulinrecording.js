@@ -7,7 +7,10 @@ data:{
     }
     ,addInsulinType:function(aName){
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("InsulinType", ["Name"],
+        qry.insert({
+            "sql": "insert InsulinType (Name)",
+            "token": "0T4wwU1HgVyY71GmMXmqNHk7wu656WqrWWacBES++NW4ih0f3lZDldIy4qKmx1TGET20zJBD1MqTrZL4ZjOVytY2jS7XkKMRSvHfx1YCTQ8="
+        },
         {"Name":aName});
         this.getTodayView(qry);
         return qry.run();
@@ -15,7 +18,10 @@ data:{
     ,addRecording:function(amount, insulinTypeId){
         // Send a message to the server that we just had a drink.
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("InsulinRecording", ["Amount", "InsulinTypeId"],
+        qry.insert({
+            "sql": "insert InsulinRecording (Amount,InsulinTypeId)",
+            "token": "G+z/4PAzbXwBA0z0/H23Isj2sAvYcJQM1HO5nQUDCEkDje9lihK+tHlbIRW9+TVXrcoS7qv8WJOfBzuhbg/s6gfjDcXXUr8msWqvzuZnhkM="
+        },
         {"Amount":amount,InsulinTypeId:insulinTypeId});
         this.getTodayView(qry);
         return qry.run();

@@ -9,7 +9,10 @@ data:{
     ,addReading:function(amount){
         // Send a message to the server that we just had a drink.
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("SugarReading", ["Amount"],
+        qry.insert({
+            "sql": "insert SugarReading (Amount)",
+            "token": "7swXLocpMAxkl5Nts0q6nBK/6xVc6Fs2ZTQn/DBfjLwRKB3pidfyUdobyPKTitYBIU9IvOISpdCih/lc4IjIXSqwEpp9S1t5hV2uLWdXe/g="
+        },
         {"Amount":amount});
         this.getTodayView(qry);
         return qry.run();

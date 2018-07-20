@@ -107,7 +107,7 @@ function updateGUI(rowSets) {
   WaterIntakeAppData.SettingsCreated = false;
   var settings = eta.utils.RowsByName("settings", rowSets);
   if (settings) {
-    if (settings.data.length == 1) {
+    if (settings.data.length >0 ) {
       WaterIntakeAppData.SettingsCreated = true;
       WaterIntakeAppData.VolumePerDayTarget_mls =
         settings.data[0].VolumePerDayTarget_mls;

@@ -8,7 +8,10 @@ data:{
     ,addReading:function(amount){
         // Send a message to the server that we just had a drink.
         var qry = diabeticHealthTracker.newQuery();
-        qry.insert("WeightReading", ["Amount"],
+        qry.insert({
+            "sql": "insert WeightReading (Amount)",
+            "token": "Kvt+Q6RA5ZAsOBmdCXimNQ0JSKrfcN+k1O0gjHWhdEH9BV0hAyaLmYJNySw7p4HN/AUuzFLLzVItKM5LvQAT6bik013WVJEgNAvnenfSo84="
+        },
         {"Amount":amount});
         this.GetRecentView(qry);
         return qry.run();
@@ -16,17 +19,14 @@ data:{
     ,onPageDataCallback:null // assign this callback function when the server returns data to display
     ,onMessageFailed:null // assign this callback function when the server returns data to display
     ,GetRecentView:function(aQuery){
-        var dt = new Date();
-        dt.setMonth(dt.getMonth()-3);
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
         aQuery.select("RecentReadings",
         {
-            "sql": "select Amount, TimeTaken \nfrom WeightReading \nwhere \nTimeTaken between @start and @end and _userid = @_userid order by TimeTaken desc",
-            "token": "kKDBa5uRWr181PnT/KyUpBgQzO2p7Afv5rAebdluBWXwWAS8SDu0CnTemWs9/iha5Gs/VCmLFxdzCJWkxYQruhNiado5MZuxFOff/wnAcNE="
+            "sql": "DECLARE @MinDate DateTime\ndeclare @start datetime\nSET @Start =getutcdate()-3\nSET @MinDate  =CAST(FLOOR(CAST(GetUTCDate() AS float)) AS DATETIME)-90\nSELECT @MINDATE\nselect Amount, TimeTaken from WeightReading where TimeTaken > @mindate",
+            "token": "5MrP1IR+sNI5wg1p73qTHNB9Z77MciINKZFxZNMj2jt1fOXQwl1VNtd+Gsx4KM2V0YhLMe/7pPZiQXsKbtMHycjBsNCItQGPY+7DOrF3FNE="
         }
         ,
-          {"start":aQuery.format.sqlDateTime(dt),
-           "end":aQuery.format.sqlDateTime(eta.utils.dateCeiling())});
+          {});
         
     }
 }
