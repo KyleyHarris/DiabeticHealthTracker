@@ -85,5 +85,5 @@ data:{
 
 }
 
-eta.comms.settings.apidomain = "http://localhost:60775/";
+//eta.comms.settings.apidomain = "http://localhost:60775/";
 //
