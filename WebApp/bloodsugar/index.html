@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/font-awesome/all.css" />
     <script src="https://entertheapi.azurewebsites.net/js/font-awesome/all.js"></script>
 
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jquery.timepicker.min.css" />
+    <script type="text/javascript" src="https://entertheapi.azurewebsites.net/js/jquery.timepicker.min.js"></script>    
+
+
     <script type="text/javascript" src="https://entertheapi.azurewebsites.net/js/jsgrid.min.js"></script>    
     <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid-theme.min.css" />
@@ -58,10 +62,11 @@
     <div class="center">
     <div class="main-section ">
          <h2>Sugar Readings</h2>
-        <div id="input-form" class="center page-section">
-            <label>Enter your reading (<span class="unit-type">)</span></label><br><input class="number-edit" type="number" min="0" max="40" required size="6" id="reading-value" onfocus="this.value=''" />
-            <br>          
+        <div id="input-form" class=" page-section">
+            <input class="number-edit" type="number" min="0" max="40" required size="6" id="reading-value" onfocus="this.value=''" /><label>Amount? (<span class="unit-type">)</span></label>
+            <div id="addtimepicker"></div>          
             <button type="button" class="button button-action button-pill " id="btnGo">Add</button>
+            
         </div>
         <div class="msg-area"> </div>
     </div>

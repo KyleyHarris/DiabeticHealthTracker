@@ -22,6 +22,9 @@ button {width:10rem;}
     margin-bottom:6px;
 }
 
+.insulin-dose-button{
+    margin-left:10px;
+}
 .history-label {
     width: 7rem;
  }

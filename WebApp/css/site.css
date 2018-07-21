@@ -16,7 +16,11 @@ html {
 body{
   margin:0px; 
 }
-
+#timepicker{
+    width:100px;
+    margin-left:10px;
+    border-color:blue;
+}
 .main-menu {
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-variant: small-caps;  

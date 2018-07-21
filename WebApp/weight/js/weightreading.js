@@ -22,8 +22,8 @@ data:{
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
         aQuery.select("RecentReadings",
         {
-            "sql": "DECLARE @MinDate DateTime\ndeclare @start datetime\nSET @Start =getutcdate()-3\nSET @MinDate  =CAST(FLOOR(CAST(GetUTCDate() AS float)) AS DATETIME)-90\nSELECT @MINDATE\nselect Amount, TimeTaken from WeightReading where TimeTaken > @mindate",
-            "token": "5MrP1IR+sNI5wg1p73qTHNB9Z77MciINKZFxZNMj2jt1fOXQwl1VNtd+Gsx4KM2V0YhLMe/7pPZiQXsKbtMHycjBsNCItQGPY+7DOrF3FNE="
+            "sql": "DECLARE @MinDate DateTime\nSET @MinDate  =CAST(FLOOR(CAST(GetUTCDate() AS float)) AS DATETIME)-90\nselect Amount, TimeTaken from WeightReading where TimeTaken > @mindate",
+            "token": "liHMGTlZulk9uiFDhTOUZQf+0DiWdJPDD9Ccn7ofMi9mwMpwUJISNl29uKH2cgOE6dLJykEK5ZTDk4v3O+59seFs5fcd/m8Bb3vw3JBWGcA="
         }
         ,
           {});

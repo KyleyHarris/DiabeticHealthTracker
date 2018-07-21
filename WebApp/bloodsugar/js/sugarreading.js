@@ -10,10 +10,10 @@ data:{
         // Send a message to the server that we just had a drink.
         var qry = diabeticHealthTracker.newQuery();
         qry.insert({
-            "sql": "insert SugarReading (Amount)",
-            "token": "7swXLocpMAxkl5Nts0q6nBK/6xVc6Fs2ZTQn/DBfjLwRKB3pidfyUdobyPKTitYBIU9IvOISpdCih/lc4IjIXSqwEpp9S1t5hV2uLWdXe/g="
+            "sql": "insert SugarReading (Amount,TimeTaken)",
+            "token": "vdxFw2TrERdNUoH/6KiKRj+bauqsIwRCwvCk3xtzFoDgGdpu4uBAtTp1nDfKC0Xk4wE2rhGNXu4lXNoYZDsGeAjvJ3UdTV9IYNbLCxwPRcI="
         },
-        {"Amount":amount});
+        {"Amount":amount, timeTaken:qryActiveDate()});
         this.getTodayView(qry);
         return qry.run();
     }

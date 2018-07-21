@@ -4,6 +4,7 @@ $(document).ready(function() {
 
   $("#btnAdd").click(postInsulinType);
   $("#reading-value").val(0);
+
   // will trigger an event back to the main form
 
   eta.user.CheckLoginStatus("../etalogin.html", function() {
@@ -35,6 +36,9 @@ function postInsulinType() {
   }
 }
 
+resetDataEntry = function(){
+  $('#insulin-dose').val("");
+}
 function postInsulinRecording(item) {
 
   // get the insulin type for the measurement
@@ -94,11 +98,11 @@ function updateGUI(rowSets) {
   // show the settings page  by default if we have no data
   eta.forms.dht.toggleSettings(insulinTypes.data.length == 0);
 
-  insulinTypeHtml =
-    '<div class="add-insulin-dose">Enter your dose<br> <input type="number" id="insulin-dose" class="insulin-dose number-edit" size=6 maxlength="6" /></div>';
+  insulinTypeHtml = "";
+    
   insulinTypes.data.forEach(function(item) {
     insulinTypeHtml +=
-      '<div class="add-insulin-dose">' +
+     // '<div class="add-insulin-dose">' +
       //    '<input type="number" id="insulin-type-'+item._Id+'" class="insulin-dose" size=6 maxlength="6" />'+
       '<button id="btnAddInsulin-' +
       item._Id +
@@ -106,8 +110,8 @@ function updateGUI(rowSets) {
       item._Id +
       '" class="insulin-dose-button button button-primary button-pill">' +
       eta.utils.sanitize(item.Name) +
-      "</button>" +
-      "</div>";
+      "</button>" ;
+      //"</div>";
   });
 
  

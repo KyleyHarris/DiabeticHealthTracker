@@ -51,7 +51,7 @@ function postWaterValue(item) {
     sendingNow();
 
     diabeticHealthTracker.WaterIntake.data
-      .addFluid(currentValue, new Date(), waterTypeId)
+      .addFluid(currentValue, waterTypeId)
       .then(result => {
         updateGUI(result.Data.Results);
         clearWaterValue();

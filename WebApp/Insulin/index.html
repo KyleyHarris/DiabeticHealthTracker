@@ -12,6 +12,9 @@
     <script src="https://entertheapi.azurewebsites.net/localjs/eta_api.js"></script>
     <script src="https://entertheapi.azurewebsites.net/localjs/eta_google.js"></script>        
 
+    <link rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jquery.timepicker.min.css" />
+    <script type="text/javascript" src="https://entertheapi.azurewebsites.net/js/jquery.timepicker.min.js"></script>    
+
     <script type="text/javascript" src="https://entertheapi.azurewebsites.net/js/jsgrid.min.js"></script>    
     <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid.min.css" />
     <link type="text/css" rel="stylesheet" href="https://entertheapi.azurewebsites.net/css/jsgrid-theme.min.css" />
@@ -57,7 +60,10 @@
             <h2>Insulin Doses<button class="settings-click"><i class="fas fa-cog"></i></button></h2>
             </div>
           <div id="input-form" class="page-section">
-            <div class="input-form-content center" id="input-form-content"></div>
+                <div class="add-insulin-dose"><input type="number" id="insulin-dose" class="insulin-dose number-edit" size=6 maxlength="6" />Enter your dose </div>
+                <div id="addtimepicker" ></div>           
+                <div class="input-form-content" id="input-form-content"></div>
+            
         </div>
     </div>
     <div id="settings" class="settings-section">

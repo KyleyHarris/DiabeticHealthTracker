@@ -5,12 +5,12 @@ data:{
         this.getTodayView(qry);
         return qry.run();
     }
-    ,addFluid:function(amountInMilliLitres, timeOfDayFinished, waterTypeId){
+    ,addFluid:function(amountInMilliLitres, waterTypeId){
         // Send a message to the server that we just had a drink.
         if(!waterTypeId) waterTypeId = null; // makesure not undefined
         var qry = diabeticHealthTracker.newQuery();
         var params = {"Volume_mls":amountInMilliLitres,
-          "FinishedConsumingAt":qry.format.sqlDateTime(timeOfDayFinished),
+          "FinishedConsumingAt":qryActiveDate(),
         WaterTypeId:waterTypeId};
         
         
