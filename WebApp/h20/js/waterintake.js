@@ -36,8 +36,8 @@ data:{
         // all local dates must be converted to sqlDate strings (which converts them to UTC time)
         aQuery.select("TodaysWater",
         {
-            "sql": "DECLARE @MinDate DateTime\nSET @MinDate  =CAST(FLOOR(CAST(GetUTCDate() AS float)) AS DATETIME)-5\nselect \n  Volume_mls, \n  FinishedConsumingAt,\n  CASE WHEN wt.Name is null then '' ELSE wt.Name END WaterType\nfrom WaterBasedFluid w\nleft join WaterFluidType wt on (wt._Id = w.WaterTypeId)\nwhere \n  w.FinishedConsumingAt > CASE WHEN @start > @MinDate THEN @start ELSE @MinDate END and\n  w._userid = @_userid \norder by FinishedConsumingAt",
-            "token": "Zwbv5KUxDHWeehSoSJdTWU7jcZ+Hl1lxNaDU3spNQNWtscNB1qSq3qkvw8rPz4JDNI+SMltA/OOfinSUQjkzTf7D3qG+6bnA+Cg+rvYSA/Y="
+            "sql": "DECLARE @MinDate DateTime\nSET @MinDate  =CAST(FLOOR(CAST(GetUTCDate() AS float)) AS DATETIME)-5\nselect \n  Volume_mls, \n  FinishedConsumingAt,\n  CASE WHEN wt.Name is null then '' ELSE wt.Name END WaterType\nfrom WaterBasedFluid w\nleft join WaterFluidType wt on (wt._Id = w.WaterTypeId)\nwhere \n  w.FinishedConsumingAt > CASE WHEN @start > @MinDate THEN @start ELSE @MinDate END and\n  w._userid = @_userid \norder by FinishedConsumingAt desc",
+            "token": "ry7+L9NM9yJDNGXxS7Z10BanUN8q3rbE93uj2fhL/oiq+gbObNpLf1xW2/GnEv4poLNnUjPLjE42romB+GAm/hVJLe+ME+5TiqU0Pd8KgxE="
         },
           {"start":aQuery.format.sqlDateTime(eta.utils.dateFloor()) });
 
