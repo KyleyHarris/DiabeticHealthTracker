@@ -18,13 +18,13 @@ $(document).ready(function() {
 function postWeightReading(item) {
   if (!eta.user.valid()) return;
   var currentValue = diabeticHealthTracker.convert.stringToFloat($("#reading-value").val());
-  if (currentValue != 0) {
-    diabeticHealthTracker.WeightReadings.data.addReading(currentValue)
-    .then(result=>
-      {
-        updateGUI(result.Data.Results);
-        sendingComplete("your weight "+currentValue.toString()+"kgs has been recorded");
-      }).catch(sendingError);
+  if (currentValue !== 0) {
+      diabeticHealthTracker.WeightReadings.data.addReading(currentValue)
+          .then(result =>
+          {
+              updateGUI(result.Data.Results);
+              sendingComplete("your weight " + currentValue.toString() + "kgs has been recorded");
+          }).catch(sendingError);
   }
 }
 
