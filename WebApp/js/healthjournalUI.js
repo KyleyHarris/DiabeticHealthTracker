@@ -6,8 +6,8 @@ $(document).ready(function () {
   // or in the fully functioning test site as a sub web link of Enter The Api
   // using the Public Name of the API project
   eta.rootFolder = "";
-  if (window.location.hostname.toLowerCase() == 'entertheapi.azurewebsites.net') {
-    eta.rootFolder = '/web/diabetichealthtracker'
+  if (window.location.hostname.toLowerCase() === 'entertheapi.azurewebsites.net') {
+      eta.rootFolder = '/web/diabetichealthtracker';
   }
 
   $('.primary-editor').focus();
@@ -19,7 +19,7 @@ $(document).ready(function () {
   sessionStorage.setItem("eta_headercolor", "antiquewhite");
 
   try {
-    $('#addtimepicker').html('<div class="" ><input id="timepicker" class="time ui-timepicker-input number-edit" type="text"/>When?</div>')
+      $('#addtimepicker').html('<div class="" ><input id="timepicker" class="time ui-timepicker-input number-edit" type="text"/>When?</div>');
     // setup timepicker if it exists on a screen. this app only needs 1 picker per pages
     $('#timepicker').timepicker({ step: 15, 'scrollDefault': 'now', disableTouchKeyboard: true });
     $('#timepicker').timepicker('setTime', new Date());
@@ -35,9 +35,10 @@ $(document).ready(function () {
 
   // setup a default error handler for the app to display erros in a Div section
   // id="error"
-  eta.forms.onError = function (errorMsg) {
-    eta.forms.alertError('error', errorMsg);
-  }
+    eta.forms.onError = function (errorMsg)
+    {
+        eta.forms.alertError('error', errorMsg);
+    };
 
   // any debug logging will be output to this element with $().append()
   debug.logSpace = $("#log");
@@ -70,38 +71,44 @@ function qryActiveDate() {
 }
 
 function bindForms() {
-  eta.forms.dht = {
+    eta.forms.dht = {
 
-    bindSettings: function () {
-      $('.settings-click').click(function () {
-        this.showSettings();
-      }.bind(this));
+        bindSettings: function ()
+        {
+            $('.settings-click').click(function ()
+            {
+                this.showSettings();
+            }.bind(this));
 
-      $('.settings-click').addClass("button button-action button-circle");
+            $('.settings-click').addClass("button button-action button-circle");
 
-      $('.return-click').click(function () {
-        this.hideSettings();
-      }.bind(this));
-      $('.return-click').addClass("button button-action button-circle");
+            $('.return-click').click(function ()
+            {
+                this.hideSettings();
+            }.bind(this));
+            $('.return-click').addClass("button button-action button-circle");
 
-    }
-    , showSettings: function () {
-      $(".settings-section").show();
-      $(".main-section").hide();
-    }
-    , hideSettings: function () {
-      $(".settings-section").hide();
-      $(".main-section").show();
+        }
+        , showSettings: function ()
+        {
+            $(".settings-section").show();
+            $(".main-section").hide();
+        }
+        , hideSettings: function ()
+        {
+            $(".settings-section").hide();
+            $(".main-section").show();
 
-    }
-    , toggleSettings(value) {
-      if (value)
-        this.showSettings();
-      else
-        this.hideSettings();
-    }
+        }
+        , toggleSettings(value)
+        {
+            if (value)
+                this.showSettings();
+            else
+                this.hideSettings();
+        }
 
-  }
+    };
 }
 
 if (!(window.jsGrid === undefined)) {
@@ -153,9 +160,9 @@ var resetDataEntry = null; // assign a callback here for setup after a successfu
 
 function getTimeBasedAlternateRowClass(item, itemIndex, dateField, data) {
   var c = "";
-  if (itemIndex % 2 == 1) c = "jsgrid-dht-alt-row ";
-  if (itemIndex > 0 && new Date(item[dateField]).toDateString() != new Date(data[itemIndex - 1][dateField]).toDateString())
-    return c + "jsgrid-row-break"
+  if (itemIndex % 2 === 1) c = "jsgrid-dht-alt-row ";
+  if (itemIndex > 0 && new Date(item[dateField]).toDateString() !== new Date(data[itemIndex - 1][dateField]).toDateString())
+      return c + "jsgrid-row-break";
   else
     return c;
 }
@@ -169,7 +176,7 @@ function insertProgressIndicatorTemplate(jItem, classType, title, message) {
   jItem.append('<div class="progress-spinner progress ' + classType + '">' +
     '<i class="fa fa-spinner fa-spin" style="font-size:24px"></i><span class="progress-title">' + title + '</span>' +
     '<span class="progress-message">' + message + '</span></div>');
-};
+}
 
 function removeSpinner(jItem) {
   jItem.find('.progress-spinner').remove();
