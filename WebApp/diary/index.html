@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -16,12 +16,12 @@
     <script src="../js/healthjournal.js"></script>
     <script src="../js/healthjournalUI.js"></script>
 
-    <script src="./js/textjournal.js"></script>
-    <script src="./js/textjournalUI.js"></script>
+    <script src="./js/diary.js"></script>
+    <script src="./js/diaryUI.js"></script>
     <link rel="stylesheet" href="../css/site.css" />
     <link rel="stylesheet" href="./css/site.css" />
     <meta charset="utf-8" />
-    <title>DHT - Notes</title>
+    <title>DHT - Diary</title>
     <link rel="apple-touch-icon" sizes="57x57" href="./apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="./apple-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="72x72" href="./apple-icon-72x72.png">
@@ -43,7 +43,7 @@
 </head>
 
 <body>
-    <div class="app-header"><div class="app-logo"><i class="fas fa-file-alt"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
+    <div class="app-header"><div class="app-logo"><i class="far fa-calendar-alt"></i><a class="main-menu" href="../index.html">Main Menu</a></div>
         <img src="https://entertheapi.azurewebsites.net/img/user.png" class="profile-image" />
         <div class="google-signin">
             <a href="#" id="g-signOut" onclick="eta.user.signOut(true);">Sign Out
@@ -53,25 +53,13 @@
 
     <div class="main-section">
         
-        <h2>Notes</h2>
-        <div id="input-form" class="page-section">
-            <div>
-            <textarea rows=3 cols=50 maxlength="290" required size="6" id="reading-value" onfocus="this.value=''" ></textarea>
-        </div>
-        <div class="center">
-            <button type="button" class="button button-action button-pill" id="btnGo">Add</button>
-        </div>
-        </div>
+          <h2>Diary</h2>
+      
         <div class="msg-area"></div>
         <div id="history" class="page-section">
-            <h2>Last 50 Items</h2>
-            <div class="history-header"><label class="date-label">Date</label><label class="time-label">Time</label>
+          
+                <div id="dataGrid"></div>
             </div>
-            <div id="historyRows"></div>
-        </div>
-    </div>
-
-
+</div>
 </body>
-
 </html>

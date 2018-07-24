@@ -1,0 +1,38 @@
+.time-slot {
+    font-size: x-small;
+    font-weight: bold;
+    color: darkgrey;
+    text-align: center;
+    display: inline-block;
+    margin-left:6px;
+    margin-right:6px;
+}
+
+.left {
+    text-align:left;
+}
+
+.right{
+    text-align:right;
+}
+
+
+.slot {
+    background-color: deepskyblue;
+    color: white;
+    border-radius: 6px;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom:10px;
+}
+.warning {
+    background-color: coral !important;
+}
+
+.good {
+    background-color: lightgreen !important;
+}
+
+.neutral {
+    background-color: darkslategray !important;
+}
