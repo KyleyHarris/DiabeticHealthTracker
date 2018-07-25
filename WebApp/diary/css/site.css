@@ -2,12 +2,14 @@
     font-size: x-small;
     font-weight: bold;
     color: darkgrey;
-    text-align: center;
-    display: inline-block;
+    text-align: left;
     margin-left:6px;
     margin-right:6px;
 }
-
+.img-small{
+    width: 240px;
+    height: auto;
+}
 .left {
     text-align:left;
 }
@@ -16,23 +18,30 @@
     text-align:right;
 }
 
+.slot-container{
+    text-align:center;
+}
 
 .slot {
-    background-color: deepskyblue;
     color: white;
-    border-radius: 6px;
+    border-radius: 16px;
     padding: 4px 10px;
-    display: inline-block;
+   
     margin-bottom:10px;
 }
+.normal {
+    background-color: lavender;
+    color:black;
+}
 .warning {
-    background-color: coral !important;
+    background-color: red ;
 }
 
 .good {
-    background-color: lightgreen !important;
+    background-color: lightgreen ;
+    color:black;
 }
 
 .neutral {
-    background-color: darkslategray !important;
+    background-color: darkslategray ;
 }

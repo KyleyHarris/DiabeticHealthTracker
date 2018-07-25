@@ -113,8 +113,8 @@ $(document).ready(function() {
           '<div class="time-header"><label class="date-label">' +
           d.toLocaleDateString() +
           '</label><label class="time-label">' +
-          d.toLocaleTimeString() +
-          '</label></div><div class="img-preview"><img id="img_'+id.toString()+'" class="img-320240" src="'+eta.comms.settings.apidomain+item.Picture+'?token='+encodeURIComponent(eta.user.readToken)+'" alt="" /></div>';
+            d.toLocaleTimeString() +
+        '</label></div><div class="img-preview"><img id="img_' + id.toString() + '" class="img-320240" src="' + diabeticHealthTracker.util.pictureToUrl(item.Picture) + '" alt="" /></div>';
       });
     }
   
