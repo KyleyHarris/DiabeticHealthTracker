@@ -37,7 +37,7 @@ function clearNoteValue() {
 function updateGUI(rowSets) {
   TextJournalAppData.SettingsCreated = false;
   clearNoteValue();
-  var history = eta.utils.RowsByName("RecentNotes", rowSets);
+  var history = eta.utils.rowsByName("RecentNotes", rowSets);
   var historyHtml = "";
   if (history) {
     history.data.forEach(function(item) {

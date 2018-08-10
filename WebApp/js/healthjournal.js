@@ -3,7 +3,16 @@ var
     diabeticHealthTracker = {// stub singleton for adding all health Journal objects to
         // Project ID is required for communication with the API.     
         projectId: "154f9499-10a6-4363-9273-74025d4888b3",
+        getSubscriptionExpiry: function ()
+        {
+            return this.newQuery().select("result",{
+                "sql": "DECLARE @Expiry DateTime\nSelect @Expiry = FullAccessExpiry From UserSubscription where _userId = @userId\nif @Expiry is null\n  Set @Expiry = DateAdd(d,-2, GetUTCDate())\nSELECT @Expiry Expiry",
+                "token": "q6ExPAv8Qt6FecG/UrbAhX5ToYydthbK2lWCufPivXtQTpv6c/+PNsVVUiy+uV1Gi2dNE3ntwWhV0SFB/D8GhxiFwX7QeW9SxTfgljwRBq4="
+            },
+                { userId: eta.user.id() }).run();
 
+
+        },
         newQuery: function ()
         {
             return new eta.query.builder(diabeticHealthTracker.projectId);
@@ -40,6 +49,12 @@ var
 //this is used to prefix login information etc in storage and 
 //allows the site to run on a standalone system or in the enter the api eco system
 eta.user.load('dht_');
+
+if (window.location.host.toLowerCase() !== "www.diabetichealthtracker.com")
+{
+    eta.comms.settings.apidomain = window.location.origin + '/';
+}
+
 
 (function ()
 {

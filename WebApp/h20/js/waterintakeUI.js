@@ -105,12 +105,12 @@ function clearWaterValue() {
 
 function updateGUI(rowSets) {
   WaterIntakeAppData.SettingsCreated = false;
-  var settings = eta.utils.RowsByName("settings", rowSets);
+  var settings = eta.utils.rowsByName("settings", rowSets);
   if (settings) {
-    if (settings.data.length >0 ) {
+    if (settings.Rows.length >0 ) {
       WaterIntakeAppData.SettingsCreated = true;
       WaterIntakeAppData.VolumePerDayTarget_mls =
-        settings.data[0].VolumePerDayTarget_mls;
+        settings.Rows[0].VolumePerDayTarget_mls;
       eta.forms.dht.hideSettings();
     } else {
       WaterIntakeAppData.VolumePerDayTarget_mls = 8 * 300;
@@ -118,11 +118,11 @@ function updateGUI(rowSets) {
     }
     $("#water-value-perday").val(WaterIntakeAppData.VolumePerDayTarget_mls);
   }
-  var history = eta.utils.RowsByName("TodaysWater", rowSets);
+  var history = eta.utils.rowsByName("TodaysWater", rowSets);
   var todayTotal_mls = 0;
   var todayDateStr = eta.utils.dateFloor().toLocaleDateString();
   if (history) {
-    history.data.forEach(function(item) {
+    history.Rows.forEach(function(item) {
       if (
         todayDateStr == new Date(item.FinishedConsumingAt).toLocaleDateString()
       )
@@ -142,7 +142,7 @@ function updateGUI(rowSets) {
           this.data
         );
       },
-      data: history.data,
+      data: history.Rows,
       fields: [
         { name: "FinishedConsumingAt", title: "Date", type: "date" },
         { name: "FinishedConsumingAt", title: "Time", type: "time" },
@@ -151,10 +151,10 @@ function updateGUI(rowSets) {
       ]
     });
   }
-  var waterTypes = eta.utils.RowsByName("WaterType", rowSets);
+  var waterTypes = eta.utils.rowsByName("WaterType", rowSets);
   var waterTypeHtml = "";
   if (waterTypes) {
-    waterTypes.data.forEach(function(item) {
+    waterTypes.Rows.forEach(function(item) {
       waterTypeHtml +=
         '<button id="btnAddWater-' +
         item._Id +

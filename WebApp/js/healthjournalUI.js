@@ -6,7 +6,7 @@ $(document).ready(function () {
   // or in the fully functioning test site as a sub web link of Enter The Api
   // using the Public Name of the API project
   eta.rootFolder = "";
-  if (window.location.hostname.toLowerCase() === 'entertheapi.azurewebsites.net') {
+    if (window.location.hostname.toLowerCase() === 'entertheapi.azurewebsites.net' || window.location.hostname.toLowerCase() === 'entertheapi1.azurewebsites.net') {
       eta.rootFolder = '/web/diabetichealthtracker';
   }
 
@@ -54,8 +54,28 @@ $(document).ready(function () {
   $(".app-header").css(
     "background-color",
     sessionStorage.getItem("eta_headercolor")
-  );
+    );
+
+
 });
+
+function checkSubscription()
+{
+    diabeticHealthTracker.getSubscriptionExpiry().then(result =>
+    {
+        if (new Date(eta.utils.result(result).Expiry) < new Date())
+        {
+            $('.app-header').after("<div id='paypal'></div>");
+            $("#paypal").load(eta.rootFolder + "/pay.html", result =>
+            {
+                $("#pp-custom").val(eta.utils.paypalCustom(eta.user.id(), diabeticHealthTracker.projectId));
+            });
+
+            
+        }
+
+    })
+}
 
 // this is the datetime to use for any data entry additions that require a date
 function activeDate() {
@@ -238,3 +258,26 @@ function loadingError(error) {
   var jItem = $('.msg-area');
   insertTimedIndicatorMessage(jItem, "badMsg", "fas fa-exclamation-circle", "Error", error.message + '<br>Please Reload the page and try again', 100000);
 }
+
+
+/*
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5QP3T28AJSFML">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+*/
+
+/*
+ <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+<input type="hidden" name="cmd" value="_s-xclick">
+<input type="hidden" name="hosted_button_id" value="5QP3T28AJSFML">
+<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribeCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+<img alt="" border="0" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
+</form>
+
+
+  */
+
+

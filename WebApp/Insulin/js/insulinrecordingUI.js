@@ -65,8 +65,8 @@ var InsulinRecordingsAppData = {};
 function updateGUI(rowSets) {
   InsulinRecordingsAppData.SettingsCreated = false;
 
-  var history = eta.utils.RowsByName("TodaysRecordings", rowSets);
-  var insulinTypes = eta.utils.RowsByName("InsulinType", rowSets);
+  var history = eta.utils.rowsByName("TodaysRecordings", rowSets);
+  var insulinTypes = eta.utils.rowsByName("InsulinType", rowSets);
   var historyHtml = "";
   var insulinTypeHtml = "";
   var headerDate = "";
@@ -79,13 +79,13 @@ function updateGUI(rowSets) {
         sorting:true,
         paging:false,
         rowClass:function(item, itemIndex){
-          if(itemIndex >0 && new Date(item.TimeTaken).toDateString() != new Date(history.data[itemIndex-1].TimeTaken).toDateString() )
+          if(itemIndex >0 && new Date(item.TimeTaken).toDateString() != new Date(history.Rows[itemIndex-1].TimeTaken).toDateString() )
             return "jsgrid-row-break"
             else
             return "";
       },
 
-        data:history.data,
+        data:history.Rows,
         fields:[
             {name:"TimeTaken",title:"Date", type:"date"},
             {name:"TimeTaken", title:"Time", type:"time"},
@@ -96,11 +96,11 @@ function updateGUI(rowSets) {
   }
 
   // show the settings page  by default if we have no data
-  eta.forms.dht.toggleSettings(insulinTypes.data.length == 0);
+  eta.forms.dht.toggleSettings(insulinTypes.Rows.length == 0);
 
   insulinTypeHtml = "";
     
-  insulinTypes.data.forEach(function(item) {
+  insulinTypes.Rows.forEach(function(item) {
     insulinTypeHtml +=
      // '<div class="add-insulin-dose">' +
       //    '<input type="number" id="insulin-type-'+item._Id+'" class="insulin-dose" size=6 maxlength="6" />'+

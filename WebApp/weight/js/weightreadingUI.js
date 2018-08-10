@@ -37,7 +37,7 @@ function clearWeightValue() {
 function updateGUI(rowSets) {
   WeightReadingsAppData.SettingsCreated = false;
   clearWeightValue();
-  var history = eta.utils.RowsByName("RecentReadings", rowSets);
+  var history = eta.utils.rowsByName("RecentReadings", rowSets);
   var historyHtml = "";
   if (history) {
     $('#history-rows').jsGrid({
@@ -50,7 +50,7 @@ function updateGUI(rowSets) {
           return getTimeBasedAlternateRowClass(item, itemIndex, 'TimeTaken', this.data);
 
       },
-          data:history.data,
+          data:history.Rows,
       fields:[
           {name:"TimeTaken",title:"Date", type:"date"},
           {name:"TimeTaken", title:"Time", type:"time"},

@@ -24,11 +24,11 @@ function updateGUI(rowSets)
 
     // query 5 sets of data in the back end and we will merge and sort them into a days data here, and then 
     // add them to a datadisplay grid
-    var dataBlood = eta.utils.RowsByName("blood", rowSets).data;
-    var dataInsulin = eta.utils.RowsByName("insulin", rowSets).data;
-    //    var dataWeight = eta.utils.RowsByName("weight", rowSets).data;
-    var dataFood = eta.utils.RowsByName("food", rowSets).data;
-    var dataWater = eta.utils.RowsByName("water", rowSets).data;
+    var dataBlood = eta.utils.rowsByName("blood", rowSets).data;
+    var dataInsulin = eta.utils.rowsByName("insulin", rowSets).data;
+    //    var dataWeight = eta.utils.rowsByName("weight", rowSets).data;
+    var dataFood = eta.utils.rowsByName("food", rowSets).data;
+    var dataWater = eta.utils.rowsByName("water", rowSets).data;
 
     //    var all = dataBlood.concat(dataInsulin).concat(dataWeight).concat(dataFood).concat(dataWater);
     all = dataBlood.concat(dataInsulin).concat(dataWater).concat(dataFood); // test with 3
@@ -82,16 +82,21 @@ function processAll()
     {
 
         if (item.itemType === "water")
-            addItemHtml(item.TimeTaken, waterContent(item), "normal");
+            addItemHtml(item.TimeTaken, waterContent(item), "normal", item.Volume_mls,'(mls)');
         else if (item.itemType === "insulin")
-            addItemHtml(item.TimeTaken, insulinContent(item), "neutral");
+            addItemHtml(item.TimeTaken, insulinContent(item), "neutral", item.Amount,'(u)');
         else if (item.itemType === "blood")
-            addItemHtml(item.TimeTaken, bloodContent(item), checkBlood(item));
+            addItemHtml(item.TimeTaken, bloodContent(item), checkBlood(item), item.Amount,'(mmol.L)');
         else if (item.itemType === "food")
             addItemHtml(item.TimeTaken, foodContent(item), "neutral");
 
-        function addItemHtml(time, content, classes)
+        function addItemHtml(time, content, classes, value,units)
         {
+            if (value)
+                value = diabeticHealthTracker.math.round2dp(value).toFixed(2).toString();
+            else
+                value = "";
+            if (!units) units = "";
             if (!classes) classes = "";
             var html = "";
             var t = new Date(time);
@@ -101,7 +106,7 @@ function processAll()
                     else
                         html = '<div class="right"><div class="time-slot">' + t.toLocaleTimeString() + '</div><div class="slot ' + classes + '" >' + content + '</div ></div>';
                         */
-            html = '<div class="slot-container"><div class="time-slot">' + t.toLocaleTimeString() + '</div><div class="slot ' + classes + '" >' + content + '</div ></div>';
+            html = '<div class="slot-container "><div class="time-slot">' + t.toLocaleTimeString() + '</div><div class="slot-content slot ' + classes + '">' + content + '</div ><div class="slot-value">' + value + '<div class="slot-units">' + units +'</div></div></div>';
             leftSide = !leftSide;
             grid.append(html);
         }
@@ -112,26 +117,27 @@ function processAll()
     function foodContent(item)
     {
         if (item.Picture !== "")
-            return 'You ate this<br><img  class="img-small" src="' + diabeticHealthTracker.util.pictureToUrl(item.Picture) + '" alt="" />';
+            return 'Meal<br><img  class="img-small" src="' + diabeticHealthTracker.util.pictureToUrl(item.Picture) + '" alt="" />';
         else
-            return "You ate: " + item.Note;
+            return "Meal: " + item.Note;
     }
 
     function waterContent(item)
     {
         var wt = "Water";
         if (item.WaterType !== "") wt = item.WaterType;
-        return "you drank " + item.Volume_mls + "mls of " + wt;
+        return "Fluids <b>" + wt +"</b>";
+        
     }
 
     function insulinContent(item)
     {
-        return "you took " + item.Amount + "units of " + item.InsulinType_Name;
+        return "Insulin Dose, <b>" + item.InsulinType_Name+"</b>";
     }
 
     function bloodContent(item)
     {
-        return "blood glucose reading: " + item.Amount + "mmol/L";
+        return "Blood Glucose";
     }
 
     function checkBlood(item)

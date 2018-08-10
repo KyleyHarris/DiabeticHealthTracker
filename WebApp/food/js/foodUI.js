@@ -101,12 +101,12 @@ $(document).ready(function() {
   }
   function updateGUI(rowSets) {
 
-    var history = eta.utils.RowsByName("RecentReadings", rowSets);
+    var history = eta.utils.rowsByName("RecentReadings", rowSets);
     var historyHtml = "";
     var id=0;
     if (history) {
       
-      history.data.forEach(function(item) {
+      history.Rows.forEach(function(item) {
         id++;
         var d = new Date(item.TimeTaken);
         historyHtml +=

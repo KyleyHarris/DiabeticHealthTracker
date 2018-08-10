@@ -54,7 +54,7 @@ function clearSugarValue(){$("#reading-value").val(null)};
 function updateGUI(rowSets){
     SugarReadingsAppData.SettingsCreated = false;
     
-    var history = eta.utils.RowsByName("RecentReadings", rowSets);
+    var history = eta.utils.rowsByName("RecentReadings", rowSets);
     var hba1c = eta.utils.resultByName("hba1c", rowSets).hba1c;
     var todayTotal = 0;
     var todayStr = new Date().toLocaleDateString();
@@ -75,7 +75,7 @@ function updateGUI(rowSets){
                 return getTimeBasedAlternateRowClass(item, itemIndex, 'TimeTaken', this.data);
 
             },
-                data:history.data,
+                data:history.Rows,
             fields:[
                 {name:"TimeTaken",title:"Date", type:"date"},
                 {name:"TimeTaken", title:"Time", type:"time"},
@@ -84,7 +84,7 @@ function updateGUI(rowSets){
             ]   
           });
 
-        history.data.forEach(function(item){ 
+        history.Rows.forEach(function(item){ 
             var d = new Date(item.TimeTaken);
             var dateStr = d.toLocaleDateString();
             if(dateStr==todayStr){
@@ -143,7 +143,7 @@ function updateGUI(rowSets){
             return getTimeBasedAlternateRowClass(item, itemIndex, 'TimeTaken', this.data);
 
         },
-            data:history.data,
+            data:history.Rows,
         fields:[
             {name:"TimeTaken",title:"Date", type:"date"},
             {name:"TimeTaken", title:"Time", type:"time"},

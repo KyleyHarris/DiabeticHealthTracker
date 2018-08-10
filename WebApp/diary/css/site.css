@@ -3,11 +3,12 @@
     font-weight: bold;
     color: darkgrey;
     text-align: left;
-    margin-left:6px;
-    margin-right:6px;
+    vertical-align:top;
+    display:inline-block;
+    margin:6px;
 }
 .img-small{
-    width: 240px;
+    width: 200px;
     height: auto;
 }
 .left {
@@ -19,29 +20,59 @@
 }
 
 .slot-container{
-    text-align:center;
+    text-align:left;
 }
 
+.slot-value{
+    display:inline-block;
+    font-size: smaller;
+    color: blue;
+    float:right;
+    margin-right:6px;
+    margin-top:6px;
+}
+.slot-units {
+    display: inline-block;
+    font-size: x-small;
+    width: 36px;
+    text-align: left;
+    margin-left: 4px;
+    color: black;
+}
 .slot {
-    color: white;
+    color: black;
     border-radius: 16px;
     padding: 4px 10px;
-   
     margin-bottom:10px;
 }
+
+.slot-content {
+  
+    display: inline-block;
+}
+
 .normal {
-    background-color: lavender;
+    background-color: white;
+ 
     color:black;
 }
 .warning {
-    background-color: red ;
+    
+    background-color:red;
+    color:white;
+
 }
 
 .good {
-    background-color: lightgreen ;
-    color:black;
+    background-color: greenyellow;
+    color: black;
+    
 }
 
 .neutral {
-    background-color: darkslategray ;
+   color:navy;
+    
+}
+img{
+    border-radius:25px;
 }

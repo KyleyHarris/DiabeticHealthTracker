@@ -1,0 +1,32 @@
+<form class="pp-form" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+    <!-- Identify your business so that you can collect the payments. -->
+    <input type="hidden" name="business" value="kyley@harrissoftware.com">
+    <!-- Specify a Subscribe button. -->
+    <input type="hidden" name="notify_url" value="https://entertheapi.azurewebsites.net/api/paypal/ipn">
+    <input type="hidden" name="cmd" value="_xclick-subscriptions">
+    <!-- Identify the subscription. -->
+    <input type="hidden" name="item_name" value="diabetic Health Tracker">
+    <input type="hidden" name="item_number" value="154f9499-10a6-4363-9273-74025d4888b3">
+    <input id="pp-custom" type="hidden" name="custom" value="">
+
+    <!-- Set the terms of the regular subscription. -->
+    <input type="hidden" name="currency_code" value="USD">
+    <input type="hidden" name="a3" value="1.00">
+    <input type="hidden" name="p3" value="1">
+    <input type="hidden" name="t3" value="M">
+
+    <!-- Set recurring payments until canceled. -->
+    <input type="hidden" name="src" value="1">
+
+    <!-- Display the payment button. -->
+    <input class="pp-image" type="image" name="submit"
+           src="https://www.paypalobjects.com/en_US/i/btn/btn_subscribe_LG.gif"
+           alt="Subscribe">
+    <img class="pp-image" src="https://www.paypalobjects.com/webstatic/en_US/i/buttons/cc-badges-ppppcmcvdam.png" alt="Pay with PayPal, PayPal Credit or any major credit card" />
+    <img alt="" width="1" height="1"
+         src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif">
+    <p>
+        Subscribing obtains full access to your data, rather than just the current day, to really improve how you manage your future,
+        by keeping track of your successes and failures.
+    </p>
+</form>

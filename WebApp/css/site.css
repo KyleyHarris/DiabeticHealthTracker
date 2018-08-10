@@ -6,6 +6,24 @@
           box-sizing: border-box;
 }
 
+
+.pp-image{
+    width:auto;
+    height:25px;
+    vertical-align:top;
+    margin-top:5px;
+}
+
+.pp-form p {
+    margin: 4px;
+    text-align: justify;
+    font-size: small;
+    padding-bottom: 3px;
+    padding-left: 12px;
+    padding-right: 12px;
+    border-bottom: solid 1px blue;
+}
+
 html {
     box-sizing: border-box;
   }
@@ -40,7 +58,7 @@ h2{
     text-align: center !important;
 }
 
-input{
+input {
     font-weight: 300;
     font-size: 1rem;
     font-family: "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
@@ -51,10 +69,6 @@ input{
     padding: 0 0.5rem;
     margin: 0;
     display: inline-block;
-    border: none;
-    border-style:solid;
-    border-color: black;
-    border-radius: 15px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
@@ -63,6 +77,10 @@ input{
     -webkit-transition-duration: .3s;
     transition-duration: .3s;
     margin-bottom: 6px;
+}
+#paypal {
+    text-align:center;
+
 }
 /*
 input {
